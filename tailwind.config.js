@@ -8,6 +8,14 @@ export default {
   ],
   theme: {
     extend: {},
+    colors: {
+      'theme-white': '#fffdfc',
+      'theme-grey': '#739193',
+      'theme-black-dark': '#000103',
+      'theme-black-light': '#28263b',
+      'theme-pink': '#d45784',
+      'theme-green': '#1ce592',
+    },
   },
   plugins: [require('tailwindcss-primeui')]
 }
