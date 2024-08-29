@@ -5,7 +5,7 @@
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
                     <DisclosureButton
-                        class="relative flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        class="relative flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                         <span class="absolute -inset-0.5" />
                         <span class="sr-only">Open main menu</span>
                         <Bars3Icon v-if="!open" class="block h-6 w-6" aria-hidden="true" />
@@ -21,24 +21,24 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex">
                             <a v-for="item in navigation" :key="item.name" :href="item.href"
-                                :class="[item.current ? 'bg-theme-green' : 'hover:border-b-2 hover:border-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-300 text-theme-black-dark']"
+                                :class="[item.current ? 'bg-theme-green' : 'hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
                                 :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
                         </div>
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                     <button type="button"
-                        class="relative rounded-full text-theme-grey hover:text-black focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        class="relative rounded-full hover:text-theme-green focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ">
                         <span class="absolute -inset-1.5" />
                         <span class="sr-only">View notifications</span>
-                        <BellIcon class="h-6 w-6" aria-hidden="true" />
+                        <BellIcon class="h-8 w-8" aria-hidden="true" />
                     </button>
 
                     <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3">
                         <div>
                             <MenuButton
-                                class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                class="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-theme-green">
                                 <span class="absolute -inset-1.5" />
                                 <span class="sr-only">Open user menu</span>
                                 <img class="h-8 w-8 rounded-full"
@@ -78,7 +78,7 @@
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href"
-                    :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-medium']"
+                    :class="[item.current ? 'bg-theme-green' : 'hover:text-theme-green', 'block rounded-md px-3 py-2 text-base font-medium']"
                     :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
             </div>
         </DisclosurePanel>
@@ -90,9 +90,9 @@ import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuIt
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-    { name: 'Dashboard', href: '#', current: true },
-    { name: 'Team', href: '#', current: false },
-    { name: 'Projects', href: '#', current: false },
-    { name: 'Calendar', href: '#', current: false },
+    { name: 'Home', href: '#', current: true },
+    { name: 'Resources', href: '#', current: false },
+    { name: 'Community', href: '#', current: false },
+    { name: 'Find Help', href: '#', current: false },
 ]
 </script>
