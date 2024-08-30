@@ -20,9 +20,12 @@
                     </div> -->
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex">
-                            <a v-for="item in navigation" :key="item.name" :href="item.href"
-                                :class="[item.current ? 'bg-theme-green' : 'hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
-                                :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+                            <a v-for="item in navigation" :key="item.name">
+                                <RouterLink :to="item.link"
+                                    :class="['hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
+                                    aria-current="page">{{
+                                        item.name }}</RouterLink>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -55,20 +58,19 @@
                             <MenuItems
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
-                                    Profile</a>
+                                <RouterLink to="/profile"
+                                    :class="['hover:border-b-2 hover:text-theme-green', 'ml-2 block mt-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']">
+                                    Your Profile
+                                </RouterLink>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
-                                </MenuItem>
-                                <MenuItem v-slot="{ active }">
-                                <a href="#"
-                                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign
-                                    out</a>
+                                <RouterLink to="/settings"
+                                    :class="['hover:border-b-2 hover:text-theme-green', 'ml-2 block mt-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']">
+                                    Settings
+                                </RouterLink>
                                 </MenuItem>
                             </MenuItems>
+
                         </transition>
                     </Menu>
                 </div>
@@ -77,22 +79,27 @@
 
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
-                <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href"
-                    :class="[item.current ? 'bg-theme-green' : 'hover:text-theme-green', 'block rounded-md px-3 py-2 text-base font-medium']"
-                    :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
+                <a v-for="item in navigation" :key="item.name" class="block text-center py-2">
+                    <RouterLink :to="item.link" active-class="active"
+                        :class="['hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
+                        aria-current="page">{{
+                            item.name }}</RouterLink>
+                </a>
             </div>
         </DisclosurePanel>
     </Disclosure>
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'Resources', href: '#', current: false },
-    { name: 'Community', href: '#', current: false },
-    { name: 'Find Help', href: '#', current: false },
+    { name: 'Home', link: '/home' },
+    { name: 'Resources', link: '/resources' },
+    { name: 'Community', link: '/community' },
+    { name: 'Find Help', link: 'find-help' },
 ]
+
 </script>

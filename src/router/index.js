@@ -39,10 +39,13 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
-    routes
+    routes,
+    linkActiveClass: 'border-theme-green',
+    linkExactActiveClass: 'border-theme-green',
 })
 
 router.beforeEach((to, from, next) => {
+    next()
     /**
      * Perform authentication checks before each route change.
      *
