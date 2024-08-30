@@ -40,8 +40,8 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
-    linkActiveClass: 'border-theme-green',
-    linkExactActiveClass: 'border-theme-green',
+    linkActiveClass: 'bg-theme-green',
+    linkExactActiveClass: 'bg-theme-green',
 })
 
 router.beforeEach((to, from, next) => {

@@ -21,10 +21,8 @@
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex">
                             <a v-for="item in navigation" :key="item.name">
-                                <RouterLink :to="item.link"
-                                    :class="['hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
-                                    aria-current="page">{{
-                                        item.name }}</RouterLink>
+                                <RouterLink :to="item.link" :class="['router-link-custom']" aria-current="page">{{
+                                    item.name }}</RouterLink>
                             </a>
                         </div>
                     </div>
@@ -58,16 +56,10 @@
                             <MenuItems
                                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                 <MenuItem v-slot="{ active }">
-                                <RouterLink to="/profile"
-                                    :class="['hover:border-b-2 hover:text-theme-green', 'ml-2 block mt-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']">
-                                    Your Profile
-                                </RouterLink>
+                                <RouterLink to="/profile" :class="['router-link-custom']">Your Profile</RouterLink>
                                 </MenuItem>
                                 <MenuItem v-slot="{ active }">
-                                <RouterLink to="/settings"
-                                    :class="['hover:border-b-2 hover:text-theme-green', 'ml-2 block mt-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']">
-                                    Settings
-                                </RouterLink>
+                                <RouterLink to="/settings" :class="['router-link-custom']">Settings</RouterLink>
                                 </MenuItem>
                             </MenuItems>
 
@@ -80,10 +72,8 @@
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <a v-for="item in navigation" :key="item.name" class="block text-center py-2">
-                    <RouterLink :to="item.link" active-class="active"
-                        :class="['hover:border-b-2 hover:text-theme-green', 'px-5 py-2 text-lg border-b-2 border-transparent transition-colors duration-100 text-theme-black-dark']"
-                        aria-current="page">{{
-                            item.name }}</RouterLink>
+                    <RouterLink :to="item.link" active-class="active" :class="['router-link-custom']">{{
+                        item.name }}</RouterLink>
                 </a>
             </div>
         </DisclosurePanel>
