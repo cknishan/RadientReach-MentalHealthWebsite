@@ -89,7 +89,7 @@ const navigation = [
     { name: 'Home', link: '/home' },
     { name: 'Resources', link: '/resources' },
     { name: 'Community', link: '/community' },
-    { name: 'Find Help', link: 'find-help' },
+    { name: 'Find Help', link: '/find-help' },
 ]
 
 </script>
