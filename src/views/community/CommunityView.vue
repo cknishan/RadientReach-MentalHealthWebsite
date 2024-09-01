@@ -1,9 +1,8 @@
 <template>
-    <div class="max-w-7xl mx-auto p-4 px-4 py-12 ">
+    <div class="max-w-7xl mx-auto  p-4 px-4 py-12 ">
         <h1 class="text-3xl font-bold text-center text-gray-900 sm:text-4xl mb-10">Upcoming Events</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div v-for="event in events.slice(0, 3)" :key="event.id"
-                class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <div v-for="event in events.slice(0, 3)" :key="event.id" class="bg-white rounded-lg shadow-lg">
                 <img :src="event.imageUrl || 'https://via.placeholder.com/400x200'" alt="Event image"
                     class="w-full h-48 object-cover">
                 <div class="p-4">
