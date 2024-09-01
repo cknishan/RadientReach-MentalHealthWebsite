@@ -3,9 +3,9 @@
 <template>
     <div class="px-4 py-12 ">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-center text-gray-900 sm:text-4xl">Mental Health Essentials</h2>
+            <h2 class="text-3xl font-bold text-center text-gray-900 sm:text-4xl mb-10 ">Mental Health Essentials</h2>
 
-            <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 <RouterLink v-for="topic in topics" :key="topic.id" class="-top-0 bg-white p-6 rounded-lg shadow-md"
                     :to="{ name: 'TopicDetails', params: { id: topic.id } }">
                     <h3 class="text-lg font-semibold text-gray-900">{{ topic.title }}</h3>

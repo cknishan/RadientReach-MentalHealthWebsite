@@ -101,11 +101,13 @@ const routes = [
     {
         path: '/events',
         name: 'EventsList',
+        meta: { requiresAuth: true },
         component: () => import('@/views/community/events_/EventsList.vue')
     },
     {
         path: '/events/:id',
         name: 'EventDetail',
+        meta: { requiresAuth: true },
         component: () => import('@/views/community/events_/EventDetail.vue'),
         props: true
     },
