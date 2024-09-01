@@ -55,7 +55,7 @@
         {
             "id": 3,
             "username": "admin",
-            "email": "",
+            "email": "admin@admin.com",
             "password": "admin",
             "confirmPassword": "",
             "isAustralian": false,
