@@ -13,9 +13,12 @@ const router = useRouter();
 
 // Function to handle login
 const handleLogin = () => {
-    if (AuthService.login(username.value, password.value)) {
-        errorMessage.value = '';
-        router.push({ name: 'Profile' });
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const user = users.find(user => user.username === username.value && user.password === password.value);
+
+    if (user) {
+        AuthService.login(username.value, password.value);
+        router.push({ name: 'Home' });
     } else {
         errorMessage.value = 'Invalid credentials';
     }
@@ -54,6 +57,7 @@ const handleLogin = () => {
                         In</button>
                 </div>
             </form>
+            <p v-if="errorMessage" class="my-2 text-red-500">{{ errorMessage }}</p>
 
             <p class="mt-10 text-center text-sm text-gray-500">
                 Not a member?

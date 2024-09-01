@@ -27,8 +27,26 @@ const routes = [
         meta: { requiresAuth: true }
     },
     { path: '/home', name: 'Home', component: HomeView },
-    { path: '/login', name: 'Login', component: LoginView },
-    { path: '/signup', name: 'SignUp', component: SignUp },
+    {
+        path: '/login', name: 'Login', component: LoginView,
+        beforeEnter: (to, from, next) => {
+            if (AuthService.isLoggedIn()) {
+                next({ name: 'Profile' }); // Redirect to Home or Profile if logged in
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: '/signup', name: 'SignUp', component: SignUp,
+        beforeEnter: (to, from, next) => {
+            if (AuthService.isLoggedIn()) {
+                next({ name: 'Profile' }); // Redirect to Home or Profile if logged in
+            } else {
+                next();
+            }
+        }
+    },
     { path: '/access-denied', name: 'AccessDenied', component: AccessDeniedView },
     { path: '/community', name: 'Community', component: CommunityView, meta: { requiresAuth: true } },
     { path: '/find-help', name: 'FindHelp', component: FindHelpView },

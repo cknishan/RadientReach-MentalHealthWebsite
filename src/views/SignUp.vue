@@ -1,42 +1,43 @@
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router';
+import { useRouter, RouterLink } from 'vue-router';
 
-// Create a router instance for navigation
 const router = useRouter();
 
 const formData = ref({
     username: '',
+    email: '',
     password: '',
+    confirmPassword: '',
     isAustralian: false,
     reason: '',
     gender: ''
 })
 
-const submittedCards = ref([])
+const singupErrorMessage = ref('')
 
 const submitForm = () => {
     validateName(true)
+    validateEmail(true)
     validatePassword(true)
-    if (!errors.value.username && !errors.value.password) {
-        submittedCards.value.push({ ...formData.value })
-        clearForm()
-    }
-}
+    validateConfirmPassword(true)
 
-const clearForm = () => {
-    formData.value = {
-        username: '',
-        password: '',
-        confirmPassword: '',
-        isAustralian: false,
-        reason: '',
-        gender: ''
+    if (!errors.value.username && !errors.value.email && !errors.value.password && !errors.value.confirmPassword) {
+        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+        const userExists = existingUsers.some(user => user.username === formData.value.username);
+        if (userExists) {
+            singupErrorMessage.value = `Username ${formData.value.username} already exists. Please choose a different username.`;
+        } else {
+            existingUsers.push({ ...formData.value });
+            localStorage.setItem('users', JSON.stringify(existingUsers));
+            router.push({ name: 'Login' });
+        }
     }
 }
 
 const errors = ref({
     username: null,
+    email: null,
     password: null,
     confirmPassword: null,
     resident: null,
@@ -53,6 +54,15 @@ const validateName = (blur) => {
         if (blur) errors.value.username = 'Name must be at least 3 characters'
     } else {
         errors.value.username = null
+    }
+}
+
+const validateEmail = (blur) => {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailPattern.test(formData.value.email)) {
+        if (blur) errors.value.email = 'Please enter a valid email address'
+    } else {
+        errors.value.email = null
     }
 }
 
@@ -79,10 +89,7 @@ const validatePassword = (blur) => {
     }
 }
 
-/**
- * Confirm password validation function that checks if the password and confirm password fields match.
- * @param blur: boolean - If true, the function will display an error message if the passwords do not match.
- */
+
 const validateConfirmPassword = (blur) => {
     if (formData.value.password !== formData.value.confirmPassword) {
         if (blur) errors.value.confirmPassword = 'Passwords do not match.'
@@ -97,15 +104,16 @@ const checkReason = (blur) => {
     } else {
         customMessage.value.reasonMessage = null
     }
+
+
+
 }
 </script>
-
 <template>
-    <div class="container mx-auto p-4">
+    <div class="mx-auto p-4">
         <div class="max-w-3xl mx-auto">
             <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 mb-8">Sign Up Your
-                Account
-            </h2>
+                Account</h2>
             <form @submit.prevent="submitForm" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
@@ -116,13 +124,11 @@ const checkReason = (blur) => {
                         <div v-if="errors.username" class="text-red-600 text-sm mt-1">{{ errors.username }}</div>
                     </div>
                     <div>
-                        <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
-                        <select id="gender" v-model="formData.gender" required
-                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" @blur="() => validateEmail(true)"
+                            @input="() => validateEmail(false)" v-model="formData.email"
+                            class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <div v-if="errors.email" class="text-red-600 text-sm mt-1">{{ errors.email }}</div>
                     </div>
                     <div>
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
@@ -133,20 +139,32 @@ const checkReason = (blur) => {
                     </div>
                     <div>
                         <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm
-                            password</label>
+                            Password</label>
                         <input type="password" id="confirm-password" v-model="formData.confirmPassword"
                             @blur="() => validateConfirmPassword(true)"
                             class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
-                        <div v-if="errors.confirmPassword" class="text-red-600 text-sm mt-1">
-                            {{ errors.confirmPassword }}
-                        </div>
+                        <div v-if="errors.confirmPassword" class="text-red-600 text-sm mt-1">{{ errors.confirmPassword
+                            }}</div>
                     </div>
                 </div>
                 <div>
-                    <div class="flex items-center">
-                        <input type="checkbox" id="isAustralian" v-model="formData.isAustralian"
-                            class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
-                        <label for="isAustralian" class="ml-2 block text-sm text-gray-900">Australian Resident?</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="isAustralian" v-model="formData.isAustralian"
+                                class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+                            <label for="isAustralian" class="ml-2 block text-sm text-gray-900">Australian
+                                Resident?</label>
+
+                        </div>
+                        <div>
+                            <label for="gender" class="block text-sm font-medium text-gray-700">Gender</label>
+                            <select id="gender" v-model="formData.gender" required
+                                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div>
@@ -157,15 +175,19 @@ const checkReason = (blur) => {
                     <div v-if="customMessage.reasonMessage" class="text-red-600 text-sm mt-1">{{
                         customMessage.reasonMessage }}</div>
                 </div>
+                <p v-if="singupErrorMessage" style="color: red">{{ singupErrorMessage }}</p>
+
                 <div class="flex justify-center space-x-4">
                     <button type="submit"
-                        class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Submit</button>
-                    <button type="button" @click="clearForm"
-                        class="bg-gray-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">Clear</button>
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign
+                        Up</button>
+                    <RouterLink
+                        class="bg-indigo-600 text-white px-4 py-2 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        :to="{ name: 'Login' }">
+                        Go to Login
+                    </RouterLink>
                 </div>
             </form>
         </div>
     </div>
 </template>
-
-<style scoped></style>
