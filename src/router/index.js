@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import AccessDeniedView from '@/views/AccessDeniedView.vue'
-import CommunityView from '../views/CommunityView.vue'
+import CommunityView from '../views/community/CommunityView.vue'
 import FindHelpView from '../views/FindHelpView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import AdminProfileView from '@/views/AdminProfileView.vue'
@@ -15,6 +15,8 @@ import NotFoundView from '@/views/NotFoundView.vue'
 
 import { AuthService } from '@/services/auth'
 import TopicDetails from '@/views/resources/topics/TopicDetails.vue'
+import EventDetail from '@/views/community/events_/EventDetail.vue'
+import EventList from '@/views/community/events_/EventsList.vue'
 
 const routes = [
     {
@@ -96,6 +98,17 @@ const routes = [
     },
     { path: '/access-denied', name: 'AccessDenied', component: AccessDeniedView },
     { path: '/community', name: 'Community', component: CommunityView, meta: { requiresAuth: true } },
+    {
+        path: '/events',
+        name: 'EventsList',
+        component: () => import('@/views/community/events_/EventsList.vue')
+    },
+    {
+        path: '/events/:id',
+        name: 'EventDetail',
+        component: () => import('@/views/community/events_/EventDetail.vue'),
+        props: true
+    },
     { path: '/find-help', name: 'FindHelp', component: FindHelpView },
     { path: '/resources', name: 'Resources', component: ResourcesView },
     { path: '/', redirect: '/home' }, // Redirect to login by default

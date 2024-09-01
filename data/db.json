@@ -31,6 +31,48 @@
             "content": "Understand the critical role of sleep in maintaining mental health. Quality sleep can improve your mood, cognitive function, and overall health. Learn tips for better sleep hygiene to enhance your wellbeing. Establish a relaxing bedtime routine, ensure your sleeping environment is comfortable and free from distractions, and adhere to a consistent sleep schedule to optimize your sleep quality."
         }
     ],
+    "events": [
+        {
+            "id": 1,
+            "eventName": "Mindfulness Workshop",
+            "place": "Community Center, Sydney",
+            "rating": 4.5,
+            "date": "2024-10-15",
+            "time": "14:00",
+            "frequency": "once",
+            "description": "A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress."
+        },
+        {
+            "id": 2,
+            "eventName": "Weekly Yoga Class",
+            "place": "Health Gym, Melbourne",
+            "rating": 4.8,
+            "date": "2024-10-18",
+            "time": "18:00",
+            "frequency": "weekly",
+            "description": "Join our weekly yoga sessions to improve flexibility, balance, and overall mental health."
+        },
+        {
+            "id": 3,
+            "eventName": "Annual Mental Health Conference",
+            "place": "Convention Center, Brisbane",
+            "rating": 4.9,
+            "date": "2024-11-05",
+            "time": "09:00",
+            "frequency": "once",
+            "description": "This annual conference brings together mental health professionals from around the country to discuss the latest research and practices."
+        },
+        {
+            "id": 4,
+            "eventName": "Sleep Improvement Seminar",
+            "place": "Hotel Grand, Perth",
+            "rating": 4.6,
+            "date": "2024-10-22",
+            "time": "16:00",
+            "frequency": "once",
+            "description": "Learn about the techniques and habits that can improve your sleep quality in this informative seminar."
+        }
+    ],
     "users": [
         {
             "id": 1,
