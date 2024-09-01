@@ -14,17 +14,25 @@ const errorMessage = ref('');
 const router = useRouter();
 
 // Function to handle login
-const handleLogin = () => {
-    const users = JSON.parse(localStorage.getItem('users')) || [];
-    const user = users.find(user => user.username === username.value && user.password === password.value);
+// Import axios for making HTTP requests
+import axios from 'axios';
 
-    if (user) {
-        AuthService.login(username.value, password.value);
-        router.push({ name: 'Home' });
-    } else {
-        errorMessage.value = 'Invalid credentials';
+const handleLogin = async () => {
+    try {
+        const response = await axios.get(`http://localhost:3000/users?username=${username.value}&password=${password.value}`);
+        const user = response.data[0];
+        if (user) {
+            AuthService.login(username.value, password.value);
+            router.push({ name: 'Home' });
+        } else {
+            errorMessage.value = 'Invalid credentials';
+        }
+    } catch (error) {
+        errorMessage.value = 'Login failed. Please try again later.';
+        console.error('Login error:', error);
     }
 };
+
 </script>
 
 

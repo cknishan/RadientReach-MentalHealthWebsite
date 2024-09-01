@@ -30,5 +30,49 @@
             "title": "Sleep and Mental Health",
             "content": "Understand the critical role of sleep in maintaining mental health. Quality sleep can improve your mood, cognitive function, and overall health. Learn tips for better sleep hygiene to enhance your wellbeing. Establish a relaxing bedtime routine, ensure your sleeping environment is comfortable and free from distractions, and adhere to a consistent sleep schedule to optimize your sleep quality."
         }
+    ],
+    "users": [
+        {
+            "id": 1,
+            "username": "nishan",
+            "email": "nis@nis.com",
+            "password": "Nishan1!",
+            "confirmPassword": "Nishan1!",
+            "isAustralian": true,
+            "reason": "asdfdfs dsf",
+            "gender": "female"
+        },
+        {
+            "id": 2,
+            "username": "chakma",
+            "email": "c@c.com",
+            "password": "Chakma1!",
+            "confirmPassword": "Chakma1!",
+            "isAustralian": false,
+            "reason": "adffds",
+            "gender": "female"
+        },
+        {
+            "id": 3,
+            "username": "admin",
+            "email": "",
+            "password": "admin",
+            "confirmPassword": "",
+            "isAustralian": false,
+            "reason": "",
+            "gender": "",
+            "role": "admin"
+        },
+        {
+            "id": "a635",
+            "username": "cknishan",
+            "email": "ck@gmail.com",
+            "password": "Cknishan1!",
+            "confirmPassword": "Cknishan1!",
+            "isAustralian": false,
+            "reason": "fdfadfadfs dsfsdfs",
+            "gender": "male",
+            "role": "user"
+        }
     ]
 }

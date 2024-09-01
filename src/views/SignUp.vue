@@ -18,24 +18,31 @@ const formData = ref({
 
 const singupErrorMessage = ref('')
 
-const submitForm = () => {
-    validateName(true)
-    validateEmail(true)
-    validatePassword(true)
-    validateConfirmPassword(true)
+// Import axios for making HTTP requests
+import axios from 'axios';
+
+const submitForm = async () => {
+    validateName(true);
+    validateEmail(true);
+    validatePassword(true);
+    validateConfirmPassword(true);
 
     if (!errors.value.username && !errors.value.email && !errors.value.password && !errors.value.confirmPassword) {
-        const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-        const userExists = existingUsers.some(user => user.username === formData.value.username);
-        if (userExists) {
-            singupErrorMessage.value = `Username ${formData.value.username} already exists. Please choose a different username.`;
-        } else {
-            existingUsers.push({ ...formData.value });
-            localStorage.setItem('users', JSON.stringify(existingUsers));
-            router.push({ name: 'Login' });
+        try {
+            const response = await axios.get(`http://localhost:3000/users?username=${formData.value.username}`);
+            if (response.data.length > 0) {
+                singupErrorMessage.value = `Username ${formData.value.username} already exists. Please choose a different username.`;
+            } else {
+                await axios.post('http://localhost:3000/users', { ...formData.value, role: 'user' });
+                router.push({ name: 'Login' });
+            }
+        } catch (error) {
+            singupErrorMessage.value = 'Error signing up. Please try again.';
+            console.error('Sign-up error:', error);
         }
     }
 }
+
 
 const errors = ref({
     username: null,

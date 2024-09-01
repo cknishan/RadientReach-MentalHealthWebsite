@@ -1,28 +1,32 @@
-// src/services/auth.js
+import axios from 'axios';
 
 export const AuthService = {
     isAuthenticated: false,
 
-    login(username, password) {
-        this.isAuthenticated = true;
-        localStorage.setItem('loggedInUser', JSON.stringify({ username }));
+    async login(username, password) {
+        const response = await axios.get(`http://localhost:3000/users?username=${username}&password=${password}`);
+        const user = response.data[0];
+        if (user) {
+            this.isAuthenticated = true;
+            sessionStorage.setItem('loggedInUser', JSON.stringify({ username }));
+        }
+        return user;
     },
 
     logout() {
         this.isAuthenticated = false;
-        localStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('loggedInUser');
     },
 
     isLoggedIn() {
-        const loggedInUser = localStorage.getItem('loggedInUser');
+        const loggedInUser = sessionStorage.getItem('loggedInUser');
         return !!loggedInUser;
     },
 
-    getRole() {
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const user = users.find(user => user.username === JSON.parse(loggedInUser).username);
-        console.log(user.role)
+    async getRole() {
+        const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+        const response = await axios.get(`http://localhost:3000/users?username=${loggedInUser.username}`);
+        const user = response.data[0];
         return user ? user.role : null;
     }
 };

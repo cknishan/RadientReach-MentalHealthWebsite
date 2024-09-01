@@ -22,30 +22,44 @@ const routes = [
         name: 'Profile',
         component: ProfileView,
         meta: { requiresAuth: true },
-        beforeEnter: (to, from, next) => {
-            const role = AuthService.getRole();
-            if (role === 'admin' && to.name !== 'AdminProfile') {
-                next({ name: 'AdminProfile' });
-            } else if (role !== 'admin' && to.name !== 'Profile') {
-                next({ name: 'Profile' });
-            } else {
-                next();
+        beforeEnter: async (to, from, next) => {
+            try {
+                const role = await AuthService.getRole();
+                if (role === 'admin' && to.name !== 'AdminProfile') {
+                    next({ name: 'AdminProfile' });
+                } else if (role !== 'admin' && to.name !== 'Profile') {
+                    next({ name: 'Profile' });
+                } else {
+                    next();
+                }
+            } catch (error) {
+                console.error("Error fetching role:", error);
+                next('/login'); // Redirect to login or an error page as fallback
             }
         }
+
     },
     {
         path: '/admin-profile',
         name: 'AdminProfile',
         component: AdminProfileView,
         meta: { requiresAuth: true },
-        beforeEnter: (to, from, next) => {
-            const role = AuthService.getRole();
-            if (role != "admin") {
-                next({ name: 'Profile' });
-            } else {
-                next();
+        beforeEnter: async (to, from, next) => {
+            try {
+                const role = await AuthService.getRole();
+                if (role === 'admin' && to.name !== 'AdminProfile') {
+                    next({ name: 'AdminProfile' });
+                } else if (role !== 'admin' && to.name !== 'Profile') {
+                    next({ name: 'Profile' });
+                } else {
+                    next();
+                }
+            } catch (error) {
+                console.error("Error fetching role:", error);
+                next('/login'); // Redirect to login or an error page as fallback
             }
         }
+
     },
     {
         path: '/settings',
