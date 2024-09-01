@@ -7,9 +7,11 @@ import AccessDeniedView from '@/views/AccessDeniedView.vue'
 import CommunityView from '../views/CommunityView.vue'
 import FindHelpView from '../views/FindHelpView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import AdminProfileView from '@/views/AdminProfileView.vue'
 import ResourcesView from '../views/ResourcesView.vue'
 import SettingsView from '../views/SettingsView.vue'
 import SignUp from '../views/SignUp.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
 
 import { AuthService } from '@/services/auth'
 
@@ -18,7 +20,31 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: ProfileView,
-        meta: { requiresAuth: true }
+        meta: { requiresAuth: true },
+        beforeEnter: (to, from, next) => {
+            const role = AuthService.getRole();
+            if (role === 'admin' && to.name !== 'AdminProfile') {
+                next({ name: 'AdminProfile' });
+            } else if (role !== 'admin' && to.name !== 'Profile') {
+                next({ name: 'Profile' });
+            } else {
+                next();
+            }
+        }
+    },
+    {
+        path: '/admin-profile',
+        name: 'AdminProfile',
+        component: AdminProfileView,
+        meta: { requiresAuth: true },
+        beforeEnter: (to, from, next) => {
+            const role = AuthService.getRole();
+            if (role != "admin") {
+                next({ name: 'Profile' });
+            } else {
+                next();
+            }
+        }
     },
     {
         path: '/settings',
@@ -52,6 +78,7 @@ const routes = [
     { path: '/find-help', name: 'FindHelp', component: FindHelpView },
     { path: '/resources', name: 'Resources', component: ResourcesView },
     { path: '/', redirect: '/home' }, // Redirect to login by default
+    { path: '/:catchAll(.*)', name: 'NotFound', component: NotFoundView },
 ]
 
 

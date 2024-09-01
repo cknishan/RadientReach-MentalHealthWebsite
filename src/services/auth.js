@@ -16,5 +16,13 @@ export const AuthService = {
     isLoggedIn() {
         const loggedInUser = localStorage.getItem('loggedInUser');
         return !!loggedInUser;
+    },
+
+    getRole() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => user.username === JSON.parse(loggedInUser).username);
+        console.log(user.role)
+        return user ? user.role : null;
     }
 };
