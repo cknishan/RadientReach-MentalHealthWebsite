@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    @apply bg-gray-100;
+}
+
 .router-link-custom {
     @apply block w-full px-5 py-2 text-lg border-b-2 border-transparent;
     @apply transition-colors duration-100 text-theme-black-dark hover:border-theme-green;

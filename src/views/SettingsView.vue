@@ -13,6 +13,13 @@ const logout = () => {
 </script>
 
 <template>
-    <h1>Settings</h1>
-    <button @click="logout" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Logout</button>
+    <div class="px-4 py-12 ">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-2xl font-semibold text-gray-900 mb-4">Settings</h1>
+            <button @click="logout"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-150 ease-in-out">
+                Logout
+            </button>
+        </div>
+    </div>
 </template>
