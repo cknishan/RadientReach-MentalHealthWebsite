@@ -8,12 +8,13 @@ import CommunityView from '../views/CommunityView.vue'
 import FindHelpView from '../views/FindHelpView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import AdminProfileView from '@/views/AdminProfileView.vue'
-import ResourcesView from '../views/ResourcesView.vue'
+import ResourcesView from '../views/resources/ResourcesView.vue'
 import SettingsView from '../views/SettingsView.vue'
 import SignUp from '../views/SignUp.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 
 import { AuthService } from '@/services/auth'
+import TopicDetails from '@/views/resources/topics/TopicDetails.vue'
 
 const routes = [
     {
@@ -72,6 +73,12 @@ const routes = [
                 next();
             }
         }
+    },
+    {
+        path: '/topics/:id',
+        name: 'TopicDetails',
+        component: TopicDetails,
+        props: true
     },
     { path: '/access-denied', name: 'AccessDenied', component: AccessDeniedView },
     { path: '/community', name: 'Community', component: CommunityView, meta: { requiresAuth: true } },
