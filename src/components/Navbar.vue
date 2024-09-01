@@ -1,3 +1,5 @@
+// src\components\Navbar.vue
+
 <template>
     <Disclosure as="nav" class="bg-theme-white text-theme-black-dark" v-slot="{ open }">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">

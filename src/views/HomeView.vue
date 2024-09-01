@@ -1,3 +1,5 @@
+<!-- src\views\HomeView.vue -->
+
 <template>
 
     <!-- Hero Section -->

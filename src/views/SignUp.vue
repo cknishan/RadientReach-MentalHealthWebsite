@@ -1,3 +1,5 @@
+<!--  src\views\SignUp.vue -->
+
 <script setup>
 import { ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router';

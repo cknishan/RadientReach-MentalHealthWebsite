@@ -1,3 +1,5 @@
+<!-- src\views\SettingsView.vue -->
+
 <script setup>
 import { AuthService } from '@/services/auth';
 import { useRouter } from 'vue-router';
