@@ -44,9 +44,7 @@
                                 class="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-theme-green">
                                 <span class="absolute -inset-1.5" />
                                 <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                    alt="" />
+                                <UserIcon class="h-8 w-8" aria-hidden="true" />
                             </MenuButton>
                         </div>
                         <transition enter-active-class="transition ease-out duration-100"
@@ -63,6 +61,9 @@
                                 <MenuItem v-slot="{ active }">
                                 <RouterLink to="/settings" :class="['router-link-custom']">Settings</RouterLink>
                                 </MenuItem>
+                                <!-- <MenuItem v-slot="{ active }">
+                                <RouterLink to="/login" :class="['router-link-custom']">Login</RouterLink>
+                                </MenuItem> -->
                             </MenuItems>
 
                         </transition>
@@ -85,7 +86,7 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline'
 
 const navigation = [
     { name: 'Home', link: '/home' },
