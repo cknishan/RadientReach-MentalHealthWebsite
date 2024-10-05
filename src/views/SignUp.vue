@@ -4,6 +4,10 @@
 import { ref } from 'vue'
 import { useRouter, RouterLink } from 'vue-router';
 
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+import db from '../firebase/init.js'; // Import the initialized Firestore instance
+import { doc, setDoc } from 'firebase/firestore'; // Firestore methods
+
 const router = useRouter();
 
 const formData = ref({
@@ -16,10 +20,9 @@ const formData = ref({
     gender: ''
 })
 
-const singupErrorMessage = ref('')
+const auth = getAuth();
 
-// Import axios for making HTTP requests
-import axios from 'axios';
+const signupErrorMessage = ref('')
 
 const submitForm = async () => {
     validateName(true);
@@ -27,20 +30,27 @@ const submitForm = async () => {
     validatePassword(true);
     validateConfirmPassword(true);
 
-    if (!errors.value.username && !errors.value.email && !errors.value.password && !errors.value.confirmPassword) {
-        try {
-            const response = await axios.get(`http://localhost:3000/users?username=${formData.value.username}`);
-            if (response.data.length > 0) {
-                singupErrorMessage.value = `Username ${formData.value.username} already exists. Please choose a different username.`;
-            } else {
-                await axios.post('http://localhost:3000/users', { ...formData.value, role: 'user' });
-                router.push({ name: 'Login' });
-            }
-        } catch (error) {
-            singupErrorMessage.value = 'Error signing up. Please try again.';
-            console.error('Sign-up error:', error);
-        }
+    try {
+        // Create the user in Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.value.email, formData.value.email);
+        const user = userCredential.user;
+
+        // Save the user data with additional attributes (like role) to Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+            email: user.email,
+            role: 'user',
+            uid: user.uid,
+            isAustralian: formData.value.isAustralian,
+            reason: formData.value.reason,
+            gender: formData.value.gender
+        });
+
+        console.log('Firebase Registration Successful');
+        router.push({ name: 'Login' });
+    } catch (error) {
+        console.error('Error during registration: ', error);
     }
+
 }
 
 
@@ -113,10 +123,8 @@ const checkReason = (blur) => {
     } else {
         customMessage.value.reasonMessage = null
     }
-
-
-
 }
+
 </script>
 <template>
     <div class="mx-auto p-4">
@@ -184,7 +192,7 @@ const checkReason = (blur) => {
                     <div v-if="customMessage.reasonMessage" class="text-red-600 text-sm mt-1">{{
                         customMessage.reasonMessage }}</div>
                 </div>
-                <p v-if="singupErrorMessage" style="color: red">{{ singupErrorMessage }}</p>
+                <p v-if="signupErrorMessage" style="color: red">{{ signupErrorMessage }}</p>
 
                 <div class="flex justify-center space-x-4">
                     <button type="submit"
