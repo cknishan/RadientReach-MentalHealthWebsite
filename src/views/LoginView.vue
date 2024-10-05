@@ -1,37 +1,79 @@
 <!-- src\views\LoginView.vue -->
 
 <script setup>
+
 import { ref } from 'vue';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'vue-router';
-import { AuthService } from '@/services/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import db from '../firebase/init.js'; // Import Firestore instance
+
 
 // Local state
-const username = ref('');
+const email = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
 // Get the router instance
 const router = useRouter();
-
-// Function to handle login
-// Import axios for making HTTP requests
-import axios from 'axios';
+const auth = getAuth();
 
 const handleLogin = async () => {
     try {
-        const response = await axios.get(`http://localhost:3000/users?username=${username.value}&password=${password.value}`);
-        const user = response.data[0];
-        if (user) {
-            AuthService.login(username.value, password.value);
-            router.push({ name: 'Home' });
+        // Sign in the user using Firebase Authentication
+        const userCredential = await signInWithEmailAndPassword(auth, email.value, password.value);
+        const user = userCredential.user;
+
+        console.log('Firebase Sign In Successful!', user);
+
+        // Fetch the user role from Firestore using the user's UID
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userDocRef);
+
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            const userRole = userData.role; // Fetch the role from Firestore
+
+            // Save the user data and role to sessionStorage
+            const userWithRole = {
+                uid: user.uid,
+                email: user.email,
+                role: userRole, // Save the role along with other user data
+            };
+
+            sessionStorage.setItem('user', JSON.stringify(userWithRole)); // Save data to sessionStorage
+
+            console.log('User Role:', userRole);
+            router.push('/profile'); // Redirect to profile page after successful login
         } else {
-            errorMessage.value = 'Invalid credentials';
+            console.error('No such user document in Firestore');
+            errorMessage.value = 'User document not found in Firestore.';
         }
+
     } catch (error) {
-        errorMessage.value = 'Login failed. Please try again later.';
-        console.error('Login error:', error);
+        // console.error('Error during sign-in: ', error.message);
+        console.error(error)
+
+        // Check the error code and set a user-friendly message
+        switch (error.code) {
+            case 'auth/invalid-email':
+                errorMessage.value = 'Invalid email address format.';
+                break;
+            case 'auth/user-disabled':
+                errorMessage.value = 'This user account has been disabled.';
+                break;
+            case 'auth/user-not-found':
+                errorMessage.value = 'No user found with this email.';
+                break;
+            case 'auth/wrong-password':
+                errorMessage.value = 'Incorrect password. Please try again.';
+                break;
+            default:
+                errorMessage.value = 'An error occurred during sign-in. Please try again.';
+        }
     }
 };
+
 
 </script>
 
@@ -47,8 +89,8 @@ const handleLogin = async () => {
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" @submit.prevent="handleLogin">
                 <div>
-                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
-                    <input v-model="username" type="text" class="custom-text-input" placeholder="Username" required />
+                    <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+                    <input v-model="email" type="email" class="custom-text-input" placeholder="Email" required />
                 </div>
 
                 <div>

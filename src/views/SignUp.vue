@@ -32,7 +32,7 @@ const submitForm = async () => {
 
     try {
         // Create the user in Firebase Authentication
-        const userCredential = await createUserWithEmailAndPassword(auth, formData.value.email, formData.value.email);
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.value.email, formData.value.password);
         const user = userCredential.user;
 
         // Save the user data with additional attributes (like role) to Firestore
