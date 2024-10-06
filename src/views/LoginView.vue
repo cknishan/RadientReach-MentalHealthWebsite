@@ -41,7 +41,7 @@ const handleLogin = async () => {
                 role: userRole, // Save the role along with other user data
             };
 
-            sessionStorage.setItem('user', JSON.stringify(userWithRole)); // Save data to sessionStorage
+            sessionStorage.setItem('loggedInUser', JSON.stringify(userWithRole)); // Save data to sessionStorage
 
             console.log('User Role:', userRole);
             router.push('/profile'); // Redirect to profile page after successful login

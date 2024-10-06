@@ -1,17 +1,7 @@
-import axios from 'axios';
+// src/services/auth.js
 
 export const AuthService = {
     isAuthenticated: false,
-
-    async login(username, password) {
-        const response = await axios.get(`http://localhost:3000/users?username=${username}&password=${password}`);
-        const user = response.data[0];
-        if (user) {
-            this.isAuthenticated = true;
-            sessionStorage.setItem('loggedInUser', JSON.stringify({ username }));
-        }
-        return user;
-    },
 
     logout() {
         this.isAuthenticated = false;
@@ -24,9 +14,12 @@ export const AuthService = {
     },
 
     async getRole() {
-        const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-        const response = await axios.get(`http://localhost:3000/users?username=${loggedInUser.username}`);
-        const user = response.data[0];
+        const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
         return user ? user.role : null;
+    },
+
+    async getUID() {
+        const user = JSON.parse(sessionStorage.getItem('loggedInUser'));
+        return user ? user.uid : null;
     }
 };

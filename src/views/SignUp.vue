@@ -37,6 +37,7 @@ const submitForm = async () => {
 
         // Save the user data with additional attributes (like role) to Firestore
         await setDoc(doc(db, 'users', user.uid), {
+            username: formData.value.username,
             email: user.email,
             role: 'user',
             uid: user.uid,
