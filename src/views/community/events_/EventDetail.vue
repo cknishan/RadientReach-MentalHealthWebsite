@@ -4,9 +4,7 @@
     <div class="max-w-4xl mx-auto p-6">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <!-- Event Image -->
-            <div class="h-64 bg-cover bg-center"
-                :style="{ backgroundImage: `url(${event.imageUrl || 'https://via.placeholder.com/400x200'})` }">
-            </div>
+            <div class="h-64 bg-cover bg-center" :style="{ backgroundImage: `url(${event.imageUrl})` }"></div>
 
             <!-- Event Details -->
             <div class="p-6">
@@ -30,13 +28,31 @@
                     <span>{{ event.place }}</span>
                 </div>
                 <p class="text-gray-700 mb-6">{{ event.description }}</p>
-                <img :src="event.logoUrl || 'https://via.placeholder.com/150x50?text=Logo+Placeholder'" alt="Event logo"
-                    class="h-8 mb-4">
+                <img :src="event.logoUrl" alt="Event logo" class="h-8 mb-4">
+            </div>
 
+            <!-- Event Ratings Overview -->
+            <div class="bg-gray-50 p-6 border-t border-b border-gray-200 border-solid">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Event Ratings</h2>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <span class="text-3xl font-bold text-gray-900 mr-2">{{ averageRating.toFixed(1) }}</span>
+                        <div class="flex">
+                            <svg v-for="i in 5" :key="i" xmlns="http://www.w3.org/2000/svg"
+                                :class="[i <= Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-300']"
+                                class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path
+                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <span class="text-gray-600">{{ numberOfRatings }} {{ numberOfRatings === 1 ? 'rating' : 'ratings'
+                        }}</span>
+                </div>
             </div>
 
             <!-- Rating Section -->
-            <div class="bg-gray-50 p-6 border-t border-gray-200">
+            <div class="bg-white p-6">
                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Rate this Event</h2>
                 <div class="flex items-center">
                     <div class="flex space-x-1">
@@ -65,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -79,10 +95,20 @@ const feedbackMessage = ref('');
 const error = ref(false);
 const existingRating = ref(null);
 const currentUser = ref(null);
+const allRatings = ref([]);
+
+// New refs for rating statistics
+const averageRating = computed(() => {
+    if (allRatings.value.length === 0) return 0;
+    const sum = allRatings.value.reduce((acc, rating) => acc + rating, 0);
+    return sum / allRatings.value.length;
+});
+const numberOfRatings = computed(() => allRatings.value.length);
 
 onMounted(() => {
     fetchEventDetails();
     setupAuthListener();
+    fetchAllRatings();
 });
 
 function setupAuthListener() {
@@ -137,6 +163,19 @@ async function fetchUserRating() {
     }
 }
 
+async function fetchAllRatings() {
+    try {
+        const q = query(
+            collection(db, 'reviews'),
+            where('eventId', '==', route.params.id)
+        );
+        const querySnapshot = await getDocs(q);
+        allRatings.value = querySnapshot.docs.map(doc => doc.data().rating);
+    } catch (error) {
+        console.error("Error fetching all ratings:", error);
+    }
+}
+
 function formatDate(date) {
     return new Date(date).toLocaleDateString('en-US', {
         weekday: 'long',
@@ -170,6 +209,16 @@ async function submitRating() {
         feedbackMessage.value = existingRating.value ? "Rating updated successfully!" : "Rating submitted successfully!";
         existingRating.value = newRating.value;
         error.value = false;
+
+        // Update local ratings
+        if (existingRating.value) {
+            const index = allRatings.value.findIndex(r => r === existingRating.value);
+            if (index !== -1) {
+                allRatings.value[index] = newRating.value;
+            }
+        } else {
+            allRatings.value.push(newRating.value);
+        }
     } catch (error) {
         console.error("Error submitting rating:", error);
         feedbackMessage.value = "Failed to submit rating.";
