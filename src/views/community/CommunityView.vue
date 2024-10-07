@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto  p-4 px-4 py-12 ">
+    <div class="max-w-7xl mx-auto p-4 px-4 py-12">
         <h1 class="text-3xl font-bold text-center text-gray-900 sm:text-4xl mb-10">Upcoming Events</h1>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div v-for="event in events.slice(0, 3)" :key="event.id" class="bg-white rounded-lg shadow-lg">
@@ -25,14 +25,18 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { collection, getDocs } from 'firebase/firestore';
+import db from '@/firebase/init.js'; // Import the initialized Firebase Firestore instance
 
 const events = ref([]);
 
 onMounted(async () => {
     try {
-        const response = await axios.get('http://localhost:3000/events');
-        events.value = response.data;
+        const querySnapshot = await getDocs(collection(db, 'events')); // Fetch events from the 'events' collection
+        events.value = querySnapshot.docs.map(doc => ({
+            id: doc.id,   // Firestore-generated document ID
+            ...doc.data() // Spread the rest of the document fields (eventName, place, imageUrl, etc.)
+        }));
     } catch (error) {
         console.error("Error fetching events:", error);
     }
