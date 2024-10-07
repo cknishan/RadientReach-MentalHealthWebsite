@@ -4,8 +4,9 @@
     <div class="max-w-4xl mx-auto p-6">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <!-- Event Image -->
-            <!-- <div class="h-64 bg-cover bg-center" :style="{ backgroundImage: `url(${event.imageUrl})` }"></div> -->
-            <div class="h-64 bg-cover bg-center" :style="{ backgroundImage: `url(${event.imageUrl})` }"></div>
+            <div class="h-64 bg-cover bg-center"
+                :style="{ backgroundImage: `url(${event.imageUrl || 'https://via.placeholder.com/400x200'})` }">
+            </div>
 
             <!-- Event Details -->
             <div class="p-6">
@@ -29,7 +30,9 @@
                     <span>{{ event.place }}</span>
                 </div>
                 <p class="text-gray-700 mb-6">{{ event.description }}</p>
-                <img :src="event.logoUrl" alt="Event logo" class="h-8 mb-4">
+                <img :src="event.logoUrl || 'https://via.placeholder.com/150x50?text=Logo+Placeholder'" alt="Event logo"
+                    class="h-8 mb-4">
+
             </div>
 
             <!-- Rating Section -->
@@ -51,7 +54,7 @@
                     </div>
                     <button @click="submitRating"
                         class="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
-                        Submit Rating
+                        {{ existingRating ? 'Update Rating' : 'Submit Rating' }}
                     </button>
                 </div>
                 <p v-if="feedbackMessage" class="mt-2 text-sm"
@@ -64,8 +67,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { doc, getDoc, addDoc, collection } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import db from '@/firebase/init.js';
 
 const route = useRoute();
@@ -74,8 +77,26 @@ const newRating = ref(0);
 const hoverRating = ref(0);
 const feedbackMessage = ref('');
 const error = ref(false);
+const existingRating = ref(null);
+const currentUser = ref(null);
 
-onMounted(fetchEventDetails);
+onMounted(() => {
+    fetchEventDetails();
+    setupAuthListener();
+});
+
+function setupAuthListener() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+        currentUser.value = user;
+        if (user) {
+            fetchUserRating();
+        } else {
+            existingRating.value = null;
+            newRating.value = 0;
+        }
+    });
+}
 
 async function fetchEventDetails() {
     try {
@@ -96,6 +117,26 @@ async function fetchEventDetails() {
     }
 }
 
+async function fetchUserRating() {
+    if (!currentUser.value) return;
+
+    try {
+        const q = query(
+            collection(db, 'reviews'),
+            where('userId', '==', currentUser.value.uid),
+            where('eventId', '==', route.params.id)
+        );
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            existingRating.value = querySnapshot.docs[0].data().rating;
+            newRating.value = existingRating.value;
+        }
+    } catch (error) {
+        console.error("Error fetching user rating:", error);
+    }
+}
+
 function formatDate(date) {
     return new Date(date).toLocaleDateString('en-US', {
         weekday: 'long',
@@ -105,11 +146,8 @@ function formatDate(date) {
     });
 }
 
-const auth = getAuth();
-
 async function submitRating() {
-    const user = auth.currentUser;
-    if (!user) {
+    if (!currentUser.value) {
         feedbackMessage.value = 'You must be logged in to submit a rating.';
         error.value = true;
         return;
@@ -122,13 +160,15 @@ async function submitRating() {
     }
 
     try {
-        await addDoc(collection(db, 'reviews'), {
-            userId: user.uid,
+        const reviewRef = doc(db, 'reviews', `${currentUser.value.uid}_${route.params.id}`);
+        await setDoc(reviewRef, {
+            userId: currentUser.value.uid,
             eventId: route.params.id,
             rating: newRating.value
-        });
+        }, { merge: true });
 
-        feedbackMessage.value = "Rating submitted successfully!";
+        feedbackMessage.value = existingRating.value ? "Rating updated successfully!" : "Rating submitted successfully!";
+        existingRating.value = newRating.value;
         error.value = false;
     } catch (error) {
         console.error("Error submitting rating:", error);
