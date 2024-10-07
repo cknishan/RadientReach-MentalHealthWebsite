@@ -1,3 +1,5 @@
+<!-- src\views\resources\topics\TopicDetails.vue -->
+
 <template>
     <div v-if="topic" class="max-w-4xl mx-auto mt-8 px-8 py-6 ">
         <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2">{{ topic.title }}</h1>
@@ -11,22 +13,26 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { doc, getDoc } from 'firebase/firestore';
+import db from '@/firebase/init.js';
 
 const route = useRoute();
 const topic = ref(null);
 
 const fetchTopicDetails = async () => {
-    console.log(route.params.id);
     try {
-        const response = await fetch(`http://localhost:3000/topics/${route.params.id}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        const docRef = doc(db, 'topics', route.params.id);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            topic.value = docSnap.data();
+        } else {
+            console.error('No such document!');
         }
-        topic.value = await response.json();
     } catch (error) {
         console.error('Failed to fetch topic details:', error.message);
     }
-}
+};
 
 onMounted(fetchTopicDetails);
 </script>

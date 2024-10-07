@@ -14,31 +14,32 @@
                     </p>
                 </RouterLink>
             </div>
-
         </div>
     </div>
 </template>
 
-
 <script setup>
 import { RouterLink } from 'vue-router';
 import { onMounted, ref } from 'vue';
+import { collection, getDocs } from 'firebase/firestore';
+import db from '@/firebase/init.js'; // Adjust the import to your project setup
 
-// Define the jobs as a reactive reference
-const topics = ref([]);
+const topics = ref([]); // Define the topics as a reactive reference
 
-// Function to fetch topics data from the server
-const fetchtopics = () => {
-    fetch('http://localhost:3000/topics')
-        .then(response => response.json())
-        .then(data => {
-            topics.value = data;
-        })
-        .catch(error => {
-            console.error('Failed to fetch topics:', error.message);
-        });
-}
+// Function to fetch topics data from Firestore
+const fetchTopics = async () => {
+    try {
+        const querySnapshot = await getDocs(collection(db, 'topics'));
+        topics.value = querySnapshot.docs.map(doc => ({
+            id: doc.id,  // Firestore auto-generated ID
+            ...doc.data()  // The document's fields
+        }));
+    } catch (error) {
+        console.error('Failed to fetch topics:', error.message);
+    }
+};
 
-// Fetch topics data when component is mounted
-onMounted(fetchtopics);
+
+// Fetch topics data when the component is mounted
+onMounted(fetchTopics);
 </script>
