@@ -32,7 +32,10 @@
 
                 <!-- Booking Button -->
                 <div class="mt-4">
-                    <button @click="bookOrCancelBooking" v-if="!loadingBooking"
+                    <div v-if="isEventExpired" class="text-red-500 font-bold">
+                        Event date has passed
+                    </div>
+                    <button @click="bookOrCancelBooking" v-else-if="!loadingBooking"
                         class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
                         {{ isBooked ? 'Cancel Booking' : 'Book Event' }}
                     </button>
@@ -113,6 +116,7 @@ const feedbackMessage = ref('');
 const error = ref(false);
 const existingRating = ref(null);
 const allRatings = ref([]);
+const isEventExpired = computed(() => new Date(event.value.date) < new Date());
 
 // New refs for rating statistics
 const averageRating = computed(() => {
@@ -176,6 +180,12 @@ async function checkUserBooking() {
 async function bookOrCancelBooking() {
     if (!currentUser.value) {
         bookingMessage.value = 'You must be logged in to book or cancel.';
+        bookingError.value = true;
+        return;
+    }
+
+    if (isEventExpired.value) {
+        bookingMessage.value = 'Booking is no longer available for this event.';
         bookingError.value = true;
         return;
     }
