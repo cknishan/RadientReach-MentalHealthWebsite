@@ -29,6 +29,19 @@
                 </div>
                 <p class="text-gray-700 mb-6">{{ event.description }}</p>
                 <img :src="event.logoUrl" alt="Event logo" class="h-8 mb-4">
+
+                <!-- Booking Button -->
+                <div class="mt-4">
+                    <button @click="bookOrCancelBooking" v-if="!loadingBooking"
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+                        {{ isBooked ? 'Cancel Booking' : 'Book Event' }}
+                    </button>
+                    <span v-else class="text-gray-500">Loading...</span>
+                </div>
+                <p v-if="bookingMessage" class="mt-2 text-sm"
+                    :class="{ 'text-green-500': !bookingError, 'text-red-500': bookingError }">
+                    {{ bookingMessage }}
+                </p>
             </div>
 
             <!-- Event Ratings Overview -->
@@ -83,18 +96,22 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { doc, getDoc, setDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import db from '@/firebase/init.js';
 
 const route = useRoute();
 const event = ref({});
+const currentUser = ref(null);
+const isBooked = ref(false);
+const loadingBooking = ref(false);
+const bookingMessage = ref('');
+const bookingError = ref(false);
 const newRating = ref(0);
 const hoverRating = ref(0);
 const feedbackMessage = ref('');
 const error = ref(false);
 const existingRating = ref(null);
-const currentUser = ref(null);
 const allRatings = ref([]);
 
 // New refs for rating statistics
@@ -116,8 +133,10 @@ function setupAuthListener() {
     onAuthStateChanged(auth, (user) => {
         currentUser.value = user;
         if (user) {
+            checkUserBooking();
             fetchUserRating();
         } else {
+            isBooked.value = false;
             existingRating.value = null;
             newRating.value = 0;
         }
@@ -140,6 +159,49 @@ async function fetchEventDetails() {
         console.error("Error fetching event details:", error);
         feedbackMessage.value = "Failed to load event details.";
         error.value = true;
+    }
+}
+
+async function checkUserBooking() {
+    if (!currentUser.value) return;
+    try {
+        const bookingRef = doc(db, 'bookings', `${currentUser.value.uid}_${route.params.id}`);
+        const bookingSnap = await getDoc(bookingRef);
+        isBooked.value = bookingSnap.exists();
+    } catch (error) {
+        console.error("Error checking booking status:", error);
+    }
+}
+
+async function bookOrCancelBooking() {
+    if (!currentUser.value) {
+        bookingMessage.value = 'You must be logged in to book or cancel.';
+        bookingError.value = true;
+        return;
+    }
+
+    loadingBooking.value = true;
+    try {
+        const bookingRef = doc(db, 'bookings', `${currentUser.value.uid}_${route.params.id}`);
+        if (isBooked.value) {
+            await deleteDoc(bookingRef);
+            isBooked.value = false;
+            bookingMessage.value = 'Booking cancelled successfully.';
+        } else {
+            await setDoc(bookingRef, {
+                userId: currentUser.value.uid,
+                eventId: route.params.id
+            });
+            isBooked.value = true;
+            bookingMessage.value = 'Event booked successfully.';
+        }
+        bookingError.value = false;
+    } catch (error) {
+        console.error("Error booking or cancelling:", error);
+        bookingMessage.value = 'Failed to process your request.';
+        bookingError.value = true;
+    } finally {
+        loadingBooking.value = false;
     }
 }
 
@@ -174,15 +236,6 @@ async function fetchAllRatings() {
     } catch (error) {
         console.error("Error fetching all ratings:", error);
     }
-}
-
-function formatDate(date) {
-    return new Date(date).toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-    });
 }
 
 async function submitRating() {
@@ -229,4 +282,17 @@ async function submitRating() {
 function rateEvent(star) {
     newRating.value = star;
 }
+
+function formatDate(date) {
+    return new Date(date).toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
 </script>
+
+<style scoped>
+/* Add any necessary styles here */
+</style>
