@@ -1,4 +1,21 @@
-// src\components\Navbar.vue
+<script setup>
+import { RouterLink, useRoute } from 'vue-router';
+import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
+import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline'
+
+const navigation = [
+    { name: 'Home', link: '/home' },
+    { name: 'Resources', link: '/resources' },
+    { name: 'Community', link: '/community' },
+    { name: 'Find Help', link: '/find-help' },
+]
+
+const route = useRoute();
+
+const isActive = (link) => {
+    return route.path.startsWith(link);
+};
+</script>
 
 <template>
     <Disclosure as="nav" class="bg-theme-white text-theme-black-dark" v-slot="{ open }">
@@ -15,29 +32,18 @@
                     </DisclosureButton>
                 </div>
                 <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                    <!-- logo will go here -->
-                    <!-- <div class="flex flex-shrink-0 items-center">
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                            alt="Your Company" />
-                    </div> -->
                     <div class="hidden sm:ml-6 sm:block">
                         <div class="flex">
                             <a v-for="item in navigation" :key="item.name">
-                                <RouterLink :to="item.link" :class="['router-link-custom']" aria-current="page">{{
-                                    item.name }}</RouterLink>
+                                <RouterLink :to="item.link"
+                                    :class="[{ 'active': isActive(item.link) }, 'router-link-custom']"
+                                    aria-current="page">{{
+                                        item.name }}</RouterLink>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                    <!-- <button type="button"
-                        class="relative rounded-full hover:text-theme-green focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 ">
-                        <span class="absolute -inset-1.5" />
-                        <span class="sr-only">View notifications</span>
-                        <BellIcon class="h-8 w-8" aria-hidden="true" />
-                    </button> -->
-
-                    <!-- Profile dropdown -->
                     <Menu as="div" class="relative ml-3">
                         <div>
                             <MenuButton
@@ -61,11 +67,7 @@
                                 <MenuItem v-slot="{ active }">
                                 <RouterLink to="/settings" :class="['router-link-custom']">Settings</RouterLink>
                                 </MenuItem>
-                                <!-- <MenuItem v-slot="{ active }">
-                                <RouterLink to="/login" :class="['router-link-custom']">Login</RouterLink>
-                                </MenuItem> -->
                             </MenuItems>
-
                         </transition>
                     </Menu>
                 </div>
@@ -75,7 +77,7 @@
         <DisclosurePanel class="sm:hidden">
             <div class="space-y-1 px-2 pb-3 pt-2">
                 <a v-for="item in navigation" :key="item.name" class="block text-center py-2">
-                    <RouterLink :to="item.link" active-class="active" :class="['router-link-custom']">{{
+                    <RouterLink :to="item.link" :class="[{ 'active': isActive(item.link) }, 'router-link-custom']">{{
                         item.name }}</RouterLink>
                 </a>
             </div>
@@ -83,16 +85,10 @@
     </Disclosure>
 </template>
 
-<script setup>
-import { RouterLink } from 'vue-router';
-import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon, UserIcon } from '@heroicons/vue/24/outline'
+<style scoped>
+/* Add styles for the active state */
+.active {
+    background: #1ce592;
 
-const navigation = [
-    { name: 'Home', link: '/home' },
-    { name: 'Resources', link: '/resources' },
-    { name: 'Community', link: '/community' },
-    { name: 'Find Help', link: '/find-help' },
-]
-
-</script>
+}
+</style>

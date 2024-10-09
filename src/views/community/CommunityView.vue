@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="text-center mt-8">
-            <router-link to="/events" class="text-lg text-blue-600 hover:text-blue-800 font-semibold">
+            <router-link to="/community/events" class="text-lg text-blue-600 hover:text-blue-800 font-semibold">
                 View All Events
             </router-link>
         </div>

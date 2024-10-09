@@ -15,8 +15,7 @@ import NotFoundView from '@/views/NotFoundView.vue'
 
 import { AuthService } from '@/services/auth'
 import TopicDetails from '@/views/resources/topics/TopicDetails.vue'
-import EventDetail from '@/views/community/events_/EventDetail.vue'
-import EventList from '@/views/community/events_/EventsList.vue'
+
 
 const routes = [
     {
@@ -91,21 +90,27 @@ const routes = [
         }
     },
     {
-        path: '/topics/:id',
+        path: '/resources/topics/topics/:id',
         name: 'TopicDetails',
         component: TopicDetails,
         props: true
     },
+    {
+        path: '/resources/topics',
+        name: 'TopicsList',
+        meta: { requiresAuth: true },
+        component: () => import('@/views/resources/topics/TopicsLists.vue')
+    },
     { path: '/access-denied', name: 'AccessDenied', component: AccessDeniedView },
     { path: '/community', name: 'Community', component: CommunityView, meta: { requiresAuth: true } },
     {
-        path: '/events',
+        path: '/community/events',
         name: 'EventsList',
         meta: { requiresAuth: true },
         component: () => import('@/views/community/events_/EventsList.vue')
     },
     {
-        path: '/events/:id',
+        path: '/community/events/:id',
         name: 'EventDetail',
         meta: { requiresAuth: true },
         component: () => import('@/views/community/events_/EventDetail.vue'),

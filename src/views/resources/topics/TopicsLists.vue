@@ -1,4 +1,4 @@
-<!-- src\views\resources\ResourcesView.vue -->
+<!-- src\views\resources\topics|TopicsLists.vue -->
 
 <template>
     <div class="px-4 py-12 ">
@@ -6,8 +6,7 @@
             <h2 class="text-3xl font-bold text-center text-gray-900 sm:text-4xl mb-10 ">Mental Health Essentials</h2>
 
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                <RouterLink v-for="topic in topics.slice(0, 6)" :key="topic.id"
-                    class="-top-0 bg-white p-6 rounded-lg shadow-md"
+                <RouterLink v-for="topic in topics" :key="topic.id" class="-top-0 bg-white p-6 rounded-lg shadow-md"
                     :to="{ name: 'TopicDetails', params: { id: topic.id } }">
                     <h3 class="text-lg font-semibold text-gray-900">{{ topic.title }}</h3>
                     <p class="mt-3 text-sm text-gray-600 line-clamp-3">
@@ -15,11 +14,6 @@
                     </p>
                 </RouterLink>
             </div>
-        </div>
-        <div class="text-center mt-8">
-            <router-link to="/resources/topics" class="text-lg text-blue-600 hover:text-blue-800 font-semibold">
-                View All Topics
-            </router-link>
         </div>
     </div>
 </template>
