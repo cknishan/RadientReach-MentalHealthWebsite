@@ -204,6 +204,7 @@ async function bookOrCancelBooking() {
             });
             isBooked.value = true;
             bookingMessage.value = 'Event booked successfully.';
+            await sendBookingEmail();
         }
         bookingError.value = false;
     } catch (error) {
@@ -214,6 +215,36 @@ async function bookOrCancelBooking() {
         loadingBooking.value = false;
     }
 }
+
+async function sendBookingEmail() {
+    try {
+        const userRef = doc(db, 'users', currentUser.value.uid);
+        const userSnap = await getDoc(userRef);
+        if (userSnap.exists()) {
+            const userEmail = userSnap.data().email;
+
+            const emailData = {
+                to: userEmail,
+                eventName: event.value.eventName,
+                eventDate: formatDate(event.value.date),
+                eventPlace: event.value.place,
+            };
+
+            // Call Firebase Cloud Function
+            const sendEmail = firebase.functions().httpsCallable('sendBookingEmail');
+            const result = await sendEmail(emailData);
+
+            if (result.data.success) {
+                console.log("Email sent successfully!");
+            } else {
+                console.error("Error sending email:", result.data.error);
+            }
+        }
+    } catch (error) {
+        console.error("Error sending booking email:", error);
+    }
+}
+
 
 async function fetchUserRating() {
     if (!currentUser.value) return;
