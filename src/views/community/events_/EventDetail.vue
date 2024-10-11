@@ -103,6 +103,7 @@ import { doc, getDoc, setDoc, deleteDoc, collection, query, where, getDocs } fro
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import db from '@/firebase/init.js';
 
+
 const route = useRoute();
 const event = ref({});
 const currentUser = ref(null);
@@ -230,14 +231,21 @@ async function sendBookingEmail() {
                 eventPlace: event.value.place,
             };
 
-            // Call Firebase Cloud Function
-            const sendEmail = firebase.functions().httpsCallable('sendBookingEmail');
-            const result = await sendEmail(emailData);
+            // Call the HTTP Cloud Function
+            const response = await fetch('https://us-central1-mental-health-5ba08.cloudfunctions.net/sendBookingEmailHTTP', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(emailData)
+            });
 
-            if (result.data.success) {
+            const result = await response.json();
+
+            if (result.success) {
                 console.log("Email sent successfully!");
             } else {
-                console.error("Error sending email:", result.data.error);
+                console.error("Error sending email:", result.error);
             }
         }
     } catch (error) {
