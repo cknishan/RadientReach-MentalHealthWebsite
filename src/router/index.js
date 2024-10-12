@@ -12,12 +12,19 @@ import ResourcesView from '../views/resources/ResourcesView.vue'
 import SettingsView from '../views/SettingsView.vue'
 import SignUp from '../views/SignUp.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import UploadData from '@/views/UploadData.vue'
 
 import { AuthService } from '@/services/auth'
 import TopicDetails from '@/views/resources/topics/TopicDetails.vue'
 
 
 const routes = [
+    {
+        path: '/upload',
+        name: 'Upload',
+        component: UploadData
+    }
+    ,
     {
         path: '/profile',
         name: 'Profile',
