@@ -12,17 +12,23 @@ import ResourcesView from '../views/resources/ResourcesView.vue'
 import SettingsView from '../views/SettingsView.vue'
 import SignUp from '../views/SignUp.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
-import UploadData from '@/views/UploadData.vue'
 
 import { AuthService } from '@/services/auth'
 import TopicDetails from '@/views/resources/topics/TopicDetails.vue'
+import GetTopicsAPI from '@/views/GetTopicsAPI.vue'
+import GetCentersAPI from '@/views/GetCentersAPI.vue'
 
 
 const routes = [
     {
-        path: '/upload',
-        name: 'Upload',
-        component: UploadData
+        path: '/getTopicsAPI',
+        name: 'GetTopicsAPI',
+        component: GetTopicsAPI
+    },
+    {
+        path: '/getCentersAPI',
+        name: 'GetCentersAPI',
+        component: GetCentersAPI
     }
     ,
     {

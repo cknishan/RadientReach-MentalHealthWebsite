@@ -1,8 +1,6 @@
 <!-- src\views\AdminProfileView.vue -->
 
 
-<!-- src\views\ProfileView.vue -->
-
 <template>
     <div class="px-4 py-12 ">
         <h1 class="my-6  text-gray-900 sm:text-5xl text-center">Admin Profile</h1>
