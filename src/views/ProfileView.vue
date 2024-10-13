@@ -136,6 +136,21 @@
                         </button>
                     </div>
                 </div>
+
+            </div>
+            <div class="my-6">
+                <!-- Export Options -->
+                <div class="mb-4 flex gap-4">
+                    <button @click="exportAsCSV" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded">
+                        Export as CSV
+                    </button>
+                    <button @click="exportAsJSON" class="bg-green-500 hover:bg-green-700 text-white py-2 px-4 rounded">
+                        Export as JSON
+                    </button>
+                    <button @click="exportAsPDF" class="bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded">
+                        Export as PDF
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -146,6 +161,8 @@ import { ref, computed, onMounted } from 'vue';
 import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import db from '../firebase/init';
 import { AuthService } from '@/services/auth';
+import { saveAs } from 'file-saver'; // For downloading files
+import jsPDF from 'jspdf'; // For PDF generation
 
 const userData = ref({});
 const mood = ref('Neutral');
@@ -240,4 +257,43 @@ const totalPages = computed(() => Math.ceil(filteredEntries.value.length / entri
 
 const prevPage = () => currentPage.value > 1 && currentPage.value--;
 const nextPage = () => currentPage.value < totalPages.value && currentPage.value++;
+
+
+// Export as JSON
+const exportAsJSON = () => {
+    const jsonContent = JSON.stringify(entries.value, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    saveAs(blob, 'mood_checkin_history.json');
+};
+
+// Export as PDF
+const exportAsPDF = () => {
+    const doc = new jsPDF();
+    doc.text('Mood Check-In History', 10, 10);
+
+    let y = 20;
+    entries.value.forEach((entry) => {
+        doc.text(`Date: ${entry.date}`, 10, y);
+        doc.text(`Mood: ${entry.mood}`, 10, y + 10);
+        doc.text(`Intensity: ${entry.intensity}`, 10, y + 20);
+        doc.text(`Note: ${entry.note}`, 10, y + 30);
+        y += 40;
+    });
+
+    doc.save('mood_checkin_history.pdf');
+};
+
+// Export as CSV
+const exportAsCSV = () => {
+    const csvContent = [
+        ['Date', 'Mood', 'Intensity', 'Note'],
+        ...entries.value.map((entry) => [entry.date, entry.mood, entry.intensity, entry.note]),
+    ]
+        .map((e) => e.join(','))
+        .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    saveAs(blob, 'mood_checkin_history.csv');
+};
+
 </script>
