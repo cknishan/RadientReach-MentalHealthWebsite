@@ -1,5 +1,7 @@
 # FIT5032-Mental-Health-Website
 
+[Live Website](https://89d4b7cb.fit5032-mental-health-website.pages.dev/home)
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
