@@ -1,12 +1,14 @@
-<!-- src\views\MergedProfileCheckinView.vue -->
+<!-- src\views\ProfileCheckInView.vue -->
 
 <template>
     <div class="px-4 py-12">
-        <h1 class="my-6 tracking-tight text-gray-900 sm:text-5xl text-center">Welcome {{ userData.username }} </h1>
+        <h1 class="my-6 tracking-tight text-gray-900 sm:text-5xl text-center">
+            Welcome {{ userData.username }}
+        </h1>
 
         <!-- Mental Health Check-in Section -->
         <div class="container mx-auto p-4 max-w-4xl">
-            <h1 class="text-3xl font-bold mb-8 text-center">Mood Check-in</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">Mood Check-In</h1>
 
             <div class="bg-white shadow-md rounded-lg mb-8 p-6">
                 <h2 class="text-xl font-semibold mb-4">How are you feeling today?</h2>
@@ -18,7 +20,7 @@
                                 <label :for="moodName" class="flex items-center space-x-2">
                                     <input type="radio" :id="moodName" :value="moodName" v-model="mood"
                                         class="sr-only" />
-                                    <span :class="[`px-4 py-2 rounded-full cursor-pointer text-white`, color]">
+                                    <span :class="getMoodClass(moodName)">
                                         {{ moodName }}
                                     </span>
                                 </label>
@@ -30,10 +32,17 @@
                         <label for="intensity" class="block text-sm font-medium text-gray-700">Intensity</label>
                         <select id="intensity" v-model="intensity"
                             class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">
-                                {{ value }}
-                            </option>
+                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">{{ value }}</option>
                         </select>
+                    </div>
+
+                    <div>
+                        <label for="note" class="block text-sm font-medium text-gray-700">Note (max 500
+                            characters)</label>
+                        <textarea id="note" v-model="note" @input="limitNoteLength"
+                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                            rows="3"></textarea>
+                        <p class="text-sm text-gray-500 mt-1">{{ noteCharCount }}/500 characters</p>
                     </div>
 
                     <button type="submit"
@@ -43,9 +52,21 @@
                 </form>
             </div>
 
+            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">Check-In History</h1>
             <div class="bg-white shadow-md rounded-lg">
-                <h2 class="text-xl font-semibold p-6 border-b">Check-in History</h2>
                 <div class="p-6">
+                    <div class="mb-4 flex flex-wrap gap-4">
+                        <select v-model="filterMood" class="rounded-md border-gray-300 shadow-sm">
+                            <option value="">All Moods</option>
+                            <option v-for="(_, moodName) in moodColors" :key="moodName" :value="moodName">{{ moodName }}
+                            </option>
+                        </select>
+                        <select v-model="filterIntensity" class="rounded-md border-gray-300 shadow-sm">
+                            <option value="">All Intensities</option>
+                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">{{ value }}</option>
+                        </select>
+                    </div>
+
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
@@ -59,17 +80,21 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Intensity
                                 </th>
+                                <th
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Note</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <tr v-for="entry in currentEntries" :key="entry.id">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ entry.date }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">
-                                        {{ entry.mood }}
-                                    </span>
+                                    <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">{{
+                                        entry.mood
+                                    }}</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ entry.intensity }}</td>
+                                <td class="px-6 py-4">{{ entry.note }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -94,15 +119,18 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { doc, getDoc } from 'firebase/firestore';
-import db from '../firebase/init.js';
+import db from '../firebase/init';
 import { AuthService } from '@/services/auth';
 
 const userData = ref({});
 const mood = ref('Neutral');
 const intensity = ref(3);
+const note = ref('');
 const entries = ref([]);
 const currentPage = ref(1);
 const entriesPerPage = 5;
+const filterMood = ref('');
+const filterIntensity = ref('');
 
 const moodColors = {
     Happy: 'bg-green-500',
@@ -116,51 +144,55 @@ onMounted(async () => {
     try {
         const userUID = await AuthService.getUID();
         if (userUID) {
-            const docRef = doc(db, 'users', userUID);
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                userData.value = docSnap.data();
-                console.log('User data fetched successfully:', userData.value);
-            } else {
-                console.error('No such document!');
-            }
-        } else {
-            console.error('User UID not found.');
+            const userDoc = await getDoc(doc(db, 'users', userUID));
+            if (userDoc.exists()) userData.value = userDoc.data();
         }
     } catch (error) {
-        console.error('Failed to fetch user data:', error);
+        console.error('Error fetching user data:', error);
     }
 });
 
 const handleSubmit = () => {
-    const newEntry = {
+    entries.value.unshift({
         id: Date.now(),
         date: new Date().toLocaleString(),
         mood: mood.value,
         intensity: intensity.value,
-    };
-    entries.value = [newEntry, ...entries.value];
+        note: note.value,
+    });
+    resetForm();
+};
+
+const resetForm = () => {
     mood.value = 'Neutral';
     intensity.value = 3;
+    note.value = '';
 };
+
+const getMoodClass = (moodName) =>
+    ['px-4', 'py-2', 'rounded-full', 'cursor-pointer', 'text-white', moodColors[moodName], mood.value === moodName ? 'border-4 border-black opacity-100' : 'opacity-75'];
+
+const noteCharCount = computed(() => note.value.length);
+
+const limitNoteLength = () => {
+    if (noteCharCount.value > 500) note.value = note.value.slice(0, 500);
+};
+
+const filteredEntries = computed(() =>
+    entries.value.filter(
+        (entry) =>
+            (!filterMood.value || entry.mood === filterMood.value) &&
+            (!filterIntensity.value || entry.intensity === parseInt(filterIntensity.value))
+    )
+);
 
 const currentEntries = computed(() => {
     const start = (currentPage.value - 1) * entriesPerPage;
-    const end = start + entriesPerPage;
-    return entries.value.slice(start, end);
+    return filteredEntries.value.slice(start, start + entriesPerPage);
 });
 
-const totalPages = computed(() => Math.ceil(entries.value.length / entriesPerPage));
+const totalPages = computed(() => Math.ceil(filteredEntries.value.length / entriesPerPage));
 
-const prevPage = () => {
-    if (currentPage.value > 1) {
-        currentPage.value--;
-    }
-};
-
-const nextPage = () => {
-    if (currentPage.value < totalPages.value) {
-        currentPage.value++;
-    }
-};
+const prevPage = () => currentPage.value > 1 && currentPage.value--;
+const nextPage = () => currentPage.value < totalPages.value && currentPage.value++;
 </script>
