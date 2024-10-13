@@ -3,7 +3,7 @@
 
 <template>
     <div class="px-4 py-12">
-        <h1 class="my-6 tracking-tight text-gray-900 sm:text-5xl text-center">
+        <h1 class="my-6 tracking-tight text-gray-900 text-5xl text-center">
             Welcome {{ userData.username }}
         </h1>
 
@@ -93,36 +93,38 @@
                         </select>
                     </div>
 
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead class="bg-gray-50">
-                            <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Date
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Mood
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Intensity
-                                </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                                    Note
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-white divide-y divide-gray-200">
-                            <tr v-for="entry in currentEntries" :key="entry.id">
-                                <td class="px-6 py-4">{{ entry.date }}</td>
-                                <td class="px-6 py-4">
-                                    <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">
-                                        {{ entry.mood }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">{{ entry.intensity }}</td>
-                                <td class="px-6 py-4">{{ entry.note }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 ">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Date
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Mood
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Intensity
+                                    </th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                        Note
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200">
+                                <tr v-for="entry in currentEntries" :key="entry.id">
+                                    <td class="px-6 py-4">{{ entry.date }}</td>
+                                    <td class="px-6 py-4">
+                                        <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">
+                                            {{ entry.mood }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">{{ entry.intensity }}</td>
+                                    <td class="px-6 py-4">{{ entry.note }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
                     <div class="flex justify-between items-center mt-4">
                         <button @click="prevPage" :disabled="currentPage === 1"

@@ -2,13 +2,13 @@
 
 <template>
     <div class="px-4 py-12">
-        <h1 class="my-6 tracking-tight text-gray-900 sm:text-5xl text-center">Account Settings</h1>
+        <h1 class="my-6 tracking-tight text-gray-900 text-5xl text-center">Account Settings</h1>
 
         <div class="max-w-7xl mx-auto">
             <!-- User Profile Section -->
             <div class="mb-8">
-                <h1 class="text-2xl text-gray-900 mb-4"><strong>Name:</strong> {{ userData.username }}</h1>
-                <h1 class="text-2xl text-gray-900 mb-4"><strong>Email:</strong> {{ userData.email }}</h1>
+                <h1 class="sm:text-2xl text-gray-900 mb-4"><strong>Name:</strong> {{ userData.username }}</h1>
+                <h1 class="sm:text-2xl text-gray-900 mb-4"><strong>Email:</strong> {{ userData.email }}</h1>
             </div>
 
             <!-- Settings Section -->
