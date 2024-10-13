@@ -53,20 +53,32 @@
             </div>
 
             <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">Check-In History</h1>
+
             <div class="bg-white shadow-md rounded-lg">
                 <div class="p-6">
+                    <!-- Filters and Sorting -->
                     <div class="mb-4 flex flex-wrap gap-4">
                         <select v-model="filterMood" class="rounded-md border-gray-300 shadow-sm">
                             <option value="">All Moods</option>
                             <option v-for="(_, moodName) in moodColors" :key="moodName" :value="moodName">{{ moodName }}
                             </option>
                         </select>
+
                         <select v-model="filterIntensity" class="rounded-md border-gray-300 shadow-sm">
                             <option value="">All Intensities</option>
                             <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">{{ value }}</option>
                         </select>
+
+                        <input type="text" v-model="noteSearch" placeholder="Search by note"
+                            class="rounded-md border-gray-300 shadow-sm w-full md:w-auto" />
+
+                        <select v-model="sortOrder" class="rounded-md border-gray-300 shadow-sm">
+                            <option value="desc">Most Recent</option>
+                            <option value="asc">Oldest</option>
+                        </select>
                     </div>
 
+                    <!-- Check-In History Table -->
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
@@ -89,9 +101,9 @@
                             <tr v-for="entry in currentEntries" :key="entry.id">
                                 <td class="px-6 py-4 whitespace-nowrap">{{ entry.date }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">{{
-                                        entry.mood
-                                    }}</span>
+                                    <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">
+                                        {{ entry.mood }}
+                                    </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">{{ entry.intensity }}</td>
                                 <td class="px-6 py-4">{{ entry.note }}</td>
@@ -131,6 +143,8 @@ const currentPage = ref(1);
 const entriesPerPage = 5;
 const filterMood = ref('');
 const filterIntensity = ref('');
+const noteSearch = ref('');
+const sortOrder = ref('desc'); // 'desc' for recent, 'asc' for oldest
 
 const moodColors = {
     Happy: 'bg-green-500',
@@ -178,13 +192,17 @@ const limitNoteLength = () => {
     if (noteCharCount.value > 500) note.value = note.value.slice(0, 500);
 };
 
-const filteredEntries = computed(() =>
-    entries.value.filter(
-        (entry) =>
-            (!filterMood.value || entry.mood === filterMood.value) &&
-            (!filterIntensity.value || entry.intensity === parseInt(filterIntensity.value))
-    )
-);
+const filteredEntries = computed(() => {
+    let result = entries.value;
+
+    if (filterMood.value) result = result.filter((entry) => entry.mood === filterMood.value);
+    if (filterIntensity.value) result = result.filter((entry) => entry.intensity === parseInt(filterIntensity.value));
+    if (noteSearch.value) result = result.filter((entry) => entry.note.includes(noteSearch.value));
+
+    return result.sort((a, b) =>
+        sortOrder.value === 'desc' ? new Date(b.date) - new Date(a.date) : new Date(a.date) - new Date(b.date)
+    );
+});
 
 const currentEntries = computed(() => {
     const start = (currentPage.value - 1) * entriesPerPage;
