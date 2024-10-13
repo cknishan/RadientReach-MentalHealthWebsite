@@ -16,7 +16,7 @@
                 <tbody>
                     <tr v-for="user in users" :key="user.id" class="border-b hover:bg-gray-100">
                         <td class="py-3 px-4">{{ user.id }}</td>
-                        <td class="py-3 px-4">{{ user.name }}</td>
+                        <td class="py-3 px-4">{{ user.username }}</td>
                         <td class="py-3 px-4">{{ user.email }}</td>
                         <td class="py-3 px-4">{{ user.role }}</td>
                         <td class="py-3 px-4">
