@@ -1,4 +1,5 @@
 <!-- src\views\ProfileCheckInView.vue -->
+<!-- src\views\ProfileCheckInView.vue -->
 
 <template>
     <div class="px-4 py-12">
@@ -6,21 +7,25 @@
             Welcome {{ userData.username }}
         </h1>
 
-        <!-- Mental Health Check-in Section -->
         <div class="container mx-auto p-4 max-w-4xl">
-            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">Mood Check-In</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">
+                Mood Check-In
+            </h1>
 
             <div class="bg-white shadow-md rounded-lg mb-8 p-6">
                 <h2 class="text-xl font-semibold mb-4">How are you feeling today?</h2>
                 <form @submit.prevent="handleSubmit" class="space-y-4">
                     <div>
-                        <label for="mood" class="block text-sm font-medium text-gray-700">Mood</label>
+                        <label for="mood" class="block text-sm font-medium text-gray-700">
+                            Mood
+                        </label>
                         <div class="flex flex-wrap gap-4 mt-2">
                             <template v-for="(color, moodName) in moodColors" :key="moodName">
                                 <label :for="moodName" class="flex items-center space-x-2">
                                     <input type="radio" :id="moodName" :value="moodName" v-model="mood"
                                         class="sr-only" />
-                                    <span :class="getMoodClass(moodName)">
+                                    <span class="px-4 py-2 rounded-full cursor-pointer text-white"
+                                        :class="[mood === moodName ? 'border-4 border-black opacity-100' : 'opacity-75', moodColors[moodName]]">
                                         {{ moodName }}
                                     </span>
                                 </label>
@@ -29,20 +34,26 @@
                     </div>
 
                     <div>
-                        <label for="intensity" class="block text-sm font-medium text-gray-700">Intensity</label>
+                        <label for="intensity" class="block text-sm font-medium text-gray-700">
+                            Intensity
+                        </label>
                         <select id="intensity" v-model="intensity"
-                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">{{ value }}</option>
+                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">
+                                {{ value }}
+                            </option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="note" class="block text-sm font-medium text-gray-700">Note (max 500
-                            characters)</label>
+                        <label for="note" class="block text-sm font-medium text-gray-700">
+                            Note (max 500 characters)
+                        </label>
                         <textarea id="note" v-model="note" @input="limitNoteLength"
-                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                            rows="3"></textarea>
-                        <p class="text-sm text-gray-500 mt-1">{{ noteCharCount }}/500 characters</p>
+                            class="mt-2 block w-full rounded-md border-gray-300 shadow-sm" rows="3"></textarea>
+                        <p class="text-sm text-gray-500 mt-1">
+                            {{ noteCharCount }}/500 characters
+                        </p>
                     </div>
 
                     <button type="submit"
@@ -52,60 +63,62 @@
                 </form>
             </div>
 
-            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">Check-In History</h1>
+            <h1 class="text-3xl font-bold mb-8 text-center text-theme-pink">
+                Check-In History
+            </h1>
 
             <div class="bg-white shadow-md rounded-lg">
                 <div class="p-6">
-                    <!-- Filters and Sorting -->
                     <div class="mb-4 flex flex-wrap gap-4">
-                        <select v-model="filterMood" class="rounded-md border-gray-300 shadow-sm">
+                        <select v-model="filterMood" class="rounded-md border-gray-300">
                             <option value="">All Moods</option>
-                            <option v-for="(_, moodName) in moodColors" :key="moodName" :value="moodName">{{ moodName }}
+                            <option v-for="(_, moodName) in moodColors" :key="moodName" :value="moodName">
+                                {{ moodName }}
                             </option>
                         </select>
 
-                        <select v-model="filterIntensity" class="rounded-md border-gray-300 shadow-sm">
+                        <select v-model="filterIntensity" class="rounded-md border-gray-300">
                             <option value="">All Intensities</option>
-                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">{{ value }}</option>
+                            <option v-for="value in [1, 2, 3, 4, 5]" :key="value" :value="value">
+                                {{ value }}
+                            </option>
                         </select>
 
                         <input type="text" v-model="noteSearch" placeholder="Search by note"
-                            class="rounded-md border-gray-300 shadow-sm w-full md:w-auto" />
+                            class="rounded-md w-full md:w-auto border-gray-300 shadow-sm" />
 
-                        <select v-model="sortOrder" class="rounded-md border-gray-300 shadow-sm">
+                        <select v-model="sortOrder" class="rounded-md border-gray-300">
                             <option value="desc">Most Recent</option>
                             <option value="asc">Oldest</option>
                         </select>
                     </div>
 
-                    <!-- Check-In History Table -->
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Date</th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Mood</th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                    Date
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                    Mood
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                                     Intensity
                                 </th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Note</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                                    Note
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <tr v-for="entry in currentEntries" :key="entry.id">
-                                <td class="px-6 py-4 whitespace-nowrap">{{ entry.date }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">{{ entry.date }}</td>
+                                <td class="px-6 py-4">
                                     <span :class="[`px-2 py-1 rounded-full text-white`, moodColors[entry.mood]]">
                                         {{ entry.mood }}
                                     </span>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ entry.intensity }}</td>
+                                <td class="px-6 py-4">{{ entry.intensity }}</td>
                                 <td class="px-6 py-4">{{ entry.note }}</td>
                             </tr>
                         </tbody>
@@ -113,12 +126,12 @@
 
                     <div class="flex justify-between items-center mt-4">
                         <button @click="prevPage" :disabled="currentPage === 1"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
+                            class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded disabled:opacity-50">
                             Previous
                         </button>
                         <span>Page {{ currentPage }} of {{ totalPages }}</span>
-                        <button @click="nextPage" :disabled="currentPage === totalPages || totalPages === 0"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded disabled:opacity-50">
+                        <button @click="nextPage" :disabled="currentPage === totalPages"
+                            class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded disabled:opacity-50">
                             Next
                         </button>
                     </div>
@@ -130,7 +143,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import db from '../firebase/init';
 import { AuthService } from '@/services/auth';
 
@@ -144,7 +157,7 @@ const entriesPerPage = 5;
 const filterMood = ref('');
 const filterIntensity = ref('');
 const noteSearch = ref('');
-const sortOrder = ref('desc'); // 'desc' for recent, 'asc' for oldest
+const sortOrder = ref('desc');
 
 const moodColors = {
     Happy: 'bg-green-500',
@@ -159,22 +172,37 @@ onMounted(async () => {
         const userUID = await AuthService.getUID();
         if (userUID) {
             const userDoc = await getDoc(doc(db, 'users', userUID));
-            if (userDoc.exists()) userData.value = userDoc.data();
+            if (userDoc.exists()) {
+                userData.value = userDoc.data();
+                entries.value = userData.value.moodCheckIns || [];
+            }
         }
     } catch (error) {
         console.error('Error fetching user data:', error);
     }
 });
 
-const handleSubmit = () => {
-    entries.value.unshift({
+const handleSubmit = async () => {
+    const newEntry = {
         id: Date.now(),
         date: new Date().toLocaleString(),
         mood: mood.value,
         intensity: intensity.value,
         note: note.value,
-    });
-    resetForm();
+    };
+
+    try {
+        const userUID = await AuthService.getUID();
+        const userRef = doc(db, 'users', userUID);
+        await updateDoc(userRef, {
+            moodCheckIns: arrayUnion(newEntry),
+        });
+
+        entries.value.unshift(newEntry);
+        resetForm();
+    } catch (error) {
+        console.error('Error saving mood check-in:', error);
+    }
 };
 
 const resetForm = () => {
@@ -183,13 +211,12 @@ const resetForm = () => {
     note.value = '';
 };
 
-const getMoodClass = (moodName) =>
-    ['px-4', 'py-2', 'rounded-full', 'cursor-pointer', 'text-white', moodColors[moodName], mood.value === moodName ? 'border-4 border-black opacity-100' : 'opacity-75'];
-
 const noteCharCount = computed(() => note.value.length);
 
 const limitNoteLength = () => {
-    if (noteCharCount.value > 500) note.value = note.value.slice(0, 500);
+    if (noteCharCount.value > 500) {
+        note.value = note.value.slice(0, 500);
+    }
 };
 
 const filteredEntries = computed(() => {
