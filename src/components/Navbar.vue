@@ -18,11 +18,12 @@ const isActive = (link) => {
 </script>
 
 <template>
-    <Disclosure as="nav" class="bg-theme-white text-theme-black-dark" v-slot="{ open }">
+    <Disclosure as="nav" class="fixed top-0 left-0 w-full bg-theme-white text-theme-black-dark z-50 shadow-md"
+        v-slot="{ open }">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div class="relative flex h-16 items-center justify-between">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-                    <!-- Mobile menu button-->
+                    <!-- Mobile menu button -->
                     <DisclosureButton
                         class="relative flex items-center justify-center rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                         <span class="absolute -inset-0.5" />
@@ -37,8 +38,7 @@ const isActive = (link) => {
                             <a v-for="item in navigation" :key="item.name">
                                 <RouterLink :to="item.link"
                                     :class="[{ 'active': isActive(item.link) }, 'router-link-custom']"
-                                    aria-current="page">{{
-                                        item.name }}</RouterLink>
+                                    aria-current="page">{{ item.name }}</RouterLink>
                             </a>
                         </div>
                     </div>
@@ -84,6 +84,9 @@ const isActive = (link) => {
         </DisclosurePanel>
     </Disclosure>
 </template>
+
+
+
 
 <style scoped>
 /* Add styles for the active state */

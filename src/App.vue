@@ -9,7 +9,7 @@ import Navbar from './components/Navbar.vue';
   <header>
     <Navbar />
   </header>
-  <main>
+  <main class="pt-10">
     <RouterView />
   </main>
 </template>

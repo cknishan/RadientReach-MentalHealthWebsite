@@ -9,9 +9,9 @@
 
         </div>
         <div class="mx-auto max-w-max sm:px-4 lg:px-6">
-            <div class="mx-auto max-w-2xl lg:mx-0">
+            <div class="mx-auto max-w-full lg:mx-0">
                 <div class="mx-auto max-w-2xl lg:mx-0 flex flex-col items-center lg:flex-row justify-between">
-                    <div class="text-center lg:text-left">
+                    <div class="text-center  lg:ml-6 lg:text-left">
                         <h2 class="text-4xl font-bold tracking-tight sm:text-6xl text-theme-black-light">
                             Radiant Reach
                         </h2>
@@ -28,10 +28,14 @@
 
             <div class="mx-auto mt-8 max-w-2xl lg:mx-0 lg:max-w-none">
                 <div
-                    class="grid grid-cols-1 gap-x-8 gap-y-6 text-lg font-semibold leading-7 sm:grid-cols-2 md:flex lg:gap-x-10">
-                    <RouterLink class="text-theme-blue hover:opacity-80 hover:rotate-2 transition-transform duration-300" v-for="link in links" :key="link.name" :to="link.link">{{ link.name }} <span
-                            aria-hidden="true">&rarr;</span></RouterLink>
+                    class="grid grid-cols-1 gap-x-4 gap-y-6 text-base font-semibold leading-7 sm:grid-cols-2 md:flex lg:gap-x-10">
+                    <RouterLink v-for="link in links" :key="link.name" :to="link.link" class="text-theme-blue hover:opacity-80 hover:rotate-2 transition-transform duration-300 
+           sm:text-lg md:text-xl lg:text-2xl 
+           sm:px-2 md:px-4 lg:px-6">
+                        {{ link.name }} <span aria-hidden="true">&rarr;</span>
+                    </RouterLink>
                 </div>
+
             </div>
         </div>
     </div>
