@@ -139,8 +139,8 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
-    linkActiveClass: 'bg-theme-green',
-    linkExactActiveClass: 'bg-theme-green',
+    linkActiveClass: 'bg-theme-yellow',
+    linkExactActiveClass: 'text-white' ,
 })
 
 router.beforeEach((to, from, next) => {

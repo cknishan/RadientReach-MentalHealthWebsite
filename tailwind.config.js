@@ -15,6 +15,7 @@ export default {
         'theme-black-light': '#28263b',
         'theme-pink': '#d45784',
         'theme-green': '#1ce592',
+        'theme-blue': '#3b82f6',
       },
     },
   },
