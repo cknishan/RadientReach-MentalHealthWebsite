@@ -20,7 +20,7 @@
                         </p>
                     </div>
                     <div class="mt-6 lg:mt-0">
-                        <img src="../../public/logo/ss-logo-removebg-preview.png" alt="Logo"
+                        <img src="/logo/ss-logo-removebg-preview.png" alt="Logo"
                             class="w-32 h-auto mx-auto lg:mx-0 sm:w-40 lg:w-max object-contain">
                     </div>
                 </div>
