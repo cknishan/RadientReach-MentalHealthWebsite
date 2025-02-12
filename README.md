@@ -1,10 +1,11 @@
 # RadiantReach 🌟  
-[Live Website](https://89d4b7cb.fit5032-mental-health-website.pages.dev/home)
+
+To see live website, check the about section of [this](https://github.com/cknishan/Mental-Health-Website-Radient-Reach) github repository
   
 **Connecting Hearts, Inspiring Healing.**
 
 ## Description  
-RadiantReach is a modern web application featuring mental health resources, events booking, interactive tables, journalling, and geolocation services designed for mental health charities.
+RadiantReach is a modern web application featuring mental health resources, events booking, interactive tables, journalling, and geolocation services.
 
 ## Key Features  
 - 📅 **Appointment Booking:** Easy scheduling events.  

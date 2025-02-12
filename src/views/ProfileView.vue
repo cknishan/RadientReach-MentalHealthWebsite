@@ -1,5 +1,4 @@
 <!-- src\views\ProfileCheckInView.vue -->
-<!-- src\views\ProfileCheckInView.vue -->
 
 <template>
     <div class="px-4 py-12">
@@ -156,6 +155,7 @@
             </div>
         </div>
     </div>
+    <Chatbot />
 </template>
 
 <script setup>
@@ -165,6 +165,7 @@ import db from '../firebase/init';
 import { AuthService } from '@/services/auth';
 import { saveAs } from 'file-saver'; // For downloading files
 import jsPDF from 'jspdf'; // For PDF generation
+import Chatbot from '@/components/Chatbot.vue';
 
 const userData = ref({});
 const mood = ref('Neutral');

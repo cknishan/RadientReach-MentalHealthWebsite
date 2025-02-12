@@ -1,5 +1,5 @@
 <template>
-    <div id="trusted-resources" class="mt-16 mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8">
+    <div id="trusted-resources" class="lg:mt-16 mx-auto max-w-screen-lg px-4 sm:px-6 lg:px-8 py-6 lg:py-20 ">
       <h3 class="text-2xl font-bold text-theme-black-light sm:text-3xl lg:text-4xl text-center">
         Trusted Mental Health Resources
       </h3>
@@ -32,7 +32,6 @@
     { name: 'SANE Forums', link: 'https://saneforums.org/', description: 'Peer support for mental health challenges.' },
     { name: 'Lifeline', link: 'https://www.lifeline.org.au/', description: 'Crisis support and suicide prevention services.' },
     { name: 'Suicide Callback Service', link: 'https://www.suicidecallbackservice.org.au/', description: '24/7 professional counseling.' },
-    { name: 'What is Mental Health?', link: 'https://www.beyondblue.org.au/mental-health/what-is-mental-health', description: 'Learn more about mental health and how to care for it.' },
   ];
   </script>
   
