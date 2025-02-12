@@ -47,6 +47,8 @@
             </div>
         </div>
     </div>
+
+    <MentalHealthResources />
 </template>
 
 <script setup>
@@ -56,6 +58,7 @@ import db from '../firebase/init.js' // Import Firestore instance
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { Search, MapPin } from 'lucide-vue-next'
+import MentalHealthResources from '@/components/MentalHealthResources.vue'
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_API
 

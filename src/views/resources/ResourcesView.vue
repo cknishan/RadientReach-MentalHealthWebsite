@@ -26,12 +26,15 @@
             </router-link>
         </div>
     </div>
+
+    <MentalHealthResources />
 </template>
 
 <script setup>
 import { RouterLink } from 'vue-router';
 import { onMounted, ref } from 'vue';
 import { collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
+import MentalHealthResources from '@/components/MentalHealthResources.vue';
 import db from '@/firebase/init.js'; // Adjust the import path if necessary
 
 const topics = ref([]); // Define topics as a reactive reference

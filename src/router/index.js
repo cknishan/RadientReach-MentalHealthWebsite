@@ -141,6 +141,12 @@ const router = createRouter({
     routes,
     linkActiveClass: 'bg-theme-yellow',
     linkExactActiveClass: 'text-white' ,
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+          return { el: to.hash, behavior: 'smooth' };
+        }
+        return savedPosition || { top: 0 };
+      },
 })
 
 router.beforeEach((to, from, next) => {

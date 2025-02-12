@@ -40,9 +40,12 @@
         </div>
     </div>
 
+    <MentalHealthResources class="pt-16"/>
+
 </template>
 
 <script setup>
+import MentalHealthResources from '@/components/MentalHealthResources.vue';
 
 const links = [
     { name: 'Educational Content', link: '/resources' },
