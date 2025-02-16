@@ -1,6 +1,6 @@
 # RadiantReach 🌟  
 
-[Website Link](https://radianreach.netlify.app/) 
+[Website Link](https://radiantreach.netlify.app/) 
   
 **Connecting Hearts, Inspiring Healing.**
 
