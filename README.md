@@ -1,6 +1,6 @@
 # RadiantReach 🌟  
 
-To see live website, check the about section of [this](https://github.com/cknishan/Mental-Health-Website-Radient-Reach) github repository
+[Website Link](https://radianreach.netlify.app/) 
   
 **Connecting Hearts, Inspiring Healing.**
 
@@ -12,7 +12,7 @@ RadiantReach is a modern web application featuring mental health resources, even
 - 📊 **Interactive Dashboards:** Visualize data in real-time.  
 - 🌐 **Geolocation:** Find nearby health services.  
 - 🔒 **Secure Authentication:** Role-based access control.  
-- 🤖 **AI-Powered Chatbot:** Instant assistance with personalized health-related queries.  
+- 🤖 **AI-Powered Chatbot:** Instant assistance with any queries.  
 
 ## Technologies  
 - **Frontend:** Vue.js, Tailwind CSS  
