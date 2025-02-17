@@ -8,7 +8,7 @@
     >
       <!-- Chat header -->
       <div class="p-4 border-b flex justify-between items-center">
-        <h2 class="text-lg font-bold text-gray-700">Gemini Assistant</h2>
+        <h2 class="text-lg font-bold text-gray-700">Chatbot Assistant</h2>
         <button
           @click="toggleChat"
           class="text-gray-500 hover:text-red-600 transition"

@@ -12,7 +12,11 @@
             Trusted Resources
           </button>.
         </p>
-        <p class="py-2">This is a personal project to showcase my web development skills. To see more of my work,
+        <p class="py-2">
+          <a href="https://github.com/cknishan/RadientReach-MentalHealthWebsite" target="_blank" rel="noopener noreferrer"
+            class="font-bold text-theme-blue underline hover:opacity-80">
+            This
+          </a>is a personal project to showcase my web development skills. To see more of my work,
           <a href="https://github.com/cknishan" target="_blank" rel="noopener noreferrer"
             class="font-bold text-theme-blue underline hover:opacity-80">
             visit my github
