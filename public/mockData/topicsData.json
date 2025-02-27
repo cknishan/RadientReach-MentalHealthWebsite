@@ -221,5 +221,3 @@
     }
   ]
 
-// Convert to JSON
-//  const topicsJSON = JSON.stringify(topics.value, null, 2);

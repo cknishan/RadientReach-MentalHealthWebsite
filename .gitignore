@@ -30,3 +30,6 @@ coverage
 *.tsbuildinfo
 
 .env
+
+/firebase_uploader/__pycache__
+firebase_uploader/serviceAccount.json
