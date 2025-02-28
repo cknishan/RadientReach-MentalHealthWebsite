@@ -5,7 +5,9 @@ from firebase_admin import credentials, firestore  # type: ignore
 
 
 # Load service account credentials from environment variable or file
-service_account_json = {}
+service_account_json = {
+}
+
 
 if not service_account_json:
     raise ValueError("FIREBASE_SERVICE_ACCOUNT_JSON environment variable not set.")
@@ -34,7 +36,7 @@ def upload_data_to_firestore(json_file):
     # Upload each section to its respective collection
     upload_collection(data.get("centers", []), "centers")
     upload_collection(data.get("events", []), "events")
-    upload_collection(data.get("articles", []), "articles")
+    upload_collection(data.get("topics", []), "articles")
 
     print("Data uploaded successfully.")
 
