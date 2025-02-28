@@ -1,86 +1,372 @@
 {
-    "centers": [
-        {
-            "name": "Inner Peace Therapy",
-            "coordinates": [138.6098, -34.6743]
-        },
-        {
-            "name": "Nurtured Minds",
-            "coordinates": [145.3344, -37.7372]
-        },
-        {
-            "name": "Bright Futures Counseling",
-            "coordinates": [145.1333, -37.8135]
-        },
-        {
-            "name": "Empowerment Counseling",
-            "coordinates": [151.6549, -31.9505]
-        },
-        {
-            "name": "Serenity Counseling Services",
-            "coordinates": [144.9631, -37.8136]
-        },
-        {
-            "name": "Healing Pathways",
-            "coordinates": [145.0622, -37.648]
-        },
-        {
-            "name": "Mindful Wellness Center",
-            "coordinates": [151.2093, -33.8688]
-        },
-        {
-            "name": "Guided Growth Therapy",
-            "coordinates": [151.2535, -32.2564]
-        },
-        {
-            "name": "Balanced Mind Clinic",
-            "coordinates": [145.0015, -37.5544]
-        },
-        {
-            "name": "Peaceful Hearts Counseling",
-            "coordinates": [138.6007, -34.9285]
-        },
-        {
-            "name": "Compassionate Care Center",
-            "coordinates": [153.0454, -27.3861]
-        },
-        {
-            "name": "Tranquility Center",
-            "coordinates": [138.7026, -35.0142]
-        },
-        {
-            "name": "Resilient Minds Clinic",
-            "coordinates": [147.3294, -41.4405]
-        },
-        {
-            "name": "Caring Connections",
-            "coordinates": [145.091, -37.9753]
-        },
-        {
-            "name": "Harmony Mental Health Clinic",
-            "coordinates": [115.8575, -31.9505]
-        },
-        {
-            "name": "Tranquil Minds Therapy",
-            "coordinates": [153.0251, -27.4676]
-        },
-        {
-            "name": "Hopeful Horizons",
-            "coordinates": [145.1111, -38.1451]
-        },
-        {
-            "name": "Wholesome Minds Therapy",
-            "coordinates": [151.3072, -33.8166]
-        },
-        {
-            "name": "Calm Connections",
-            "coordinates": [145.2734, -37.8671]
-        },
-        {
-            "name": "Supportive Spaces",
-            "coordinates": [144.7071, -37.7396]
-        }
-    ],
-    "events": [{"id":"0i0IGMdWC7j4g8LiZ0cW","place":"Community Center, Sydney","date":"2024-09-15","description":"A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.","time":"18:00","eventName":"Mindfulness Workshop"},{"id":"4oQyPzOFG4XJaauXEz1D","date":"2024-10-18","time":"18:00","eventName":"Weekly Yoga Class","description":"Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.","place":"Health Gym, Melbourne"},{"id":"5kL786vdwXw11t5Io1tq","time":"09:00","eventName":"Mental Health in Workplace Seminar","date":"2024-12-05","place":"Business Hub, Sydney","description":"A seminar on the importance of mental health awareness in the workplace."},{"id":"Ax9mpixPyWgfEzZzRBHk","place":"Business Hub, Sydney","description":"A seminar on the importance of mental health awareness in the workplace.","date":"2024-12-05","time":"09:00","eventName":"Mental Health in Workplace Seminar"},{"id":"E9iz0KeRpYfgj8pq4cbK","eventName":"Stress Management Workshop","date":"2024-11-15","description":"Interactive workshop on stress management techniques for everyday life.","place":"Wellness Center, Adelaide","time":"10:00"},{"id":"L0GQtJ4LW1WE9slCPNsL","description":"An outdoor yoga retreat to connect with nature and nurture mental well-being.","time":"08:00","place":"City Park, Melbourne","eventName":"Yoga in the Park","date":"2024-12-10"},{"id":"M5ChTXP9lWr7HNTzuCWg","eventName":"Mindfulness Workshop","description":"A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.","place":"Community Center, Sydney","date":"2024-09-15","time":"18:00"},{"id":"NfNgzsuiEMUFojZ8uf7S","date":"\"2024-09-15\"","place":"Community Center, Sydney","description":"A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.","eventName":"Mindfulness Workshop","time":"18:00"},{"id":"PnKs6Mm2GdjB32iV5y9l","eventName":"Resilience Building Group Therapy","place":"Mental Health Clinic, Perth","description":"Group therapy session focusing on building resilience and coping skills.","time":"16:00","date":"2024-10-20"},{"id":"Rl1O4o3idouhcnwJt33b","time":"16:00","description":"Group therapy session focusing on building resilience and coping skills.","eventName":"Resilience Building Group Therapy","date":"2024-10-20","place":"Mental Health Clinic, Perth"},{"id":"WdA4gAQYM2VndybHfeXP","time":"10:00","place":"Wellness Center, Adelaide","date":"2024-11-15","eventName":"Stress Management Workshop","description":"Interactive workshop on stress management techniques for everyday life."},{"id":"ZeU1bizX3T0COrNSw58r","place":"ArtSpace, Brisbane","date":"2024-10-25","time":"14:00","eventName":"Creative Arts Therapy","description":"Engage in creative arts therapy to express emotions through artistic activities."},{"id":"a3NJFDLhb1xhptYp2Zzf","date":"2024-10-25","time":"14:00","eventName":"Creative Arts Therapy","description":"Engage in creative arts therapy to express emotions through artistic activities.","place":"ArtSpace, Brisbane"},{"id":"i23PpPZ5ex4huY9TDCdX","eventName":"Weekly Yoga Class","description":"Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.","date":"2024-10-18","place":"Health Gym, Melbourne","time":"18:00"},{"id":"mVepdtWpLp2Fyr8o9sj2","place":"City Park, Melbourne","time":"08:00","date":"2024-12-10","eventName":"Yoga in the Park","description":"An outdoor yoga retreat to connect with nature and nurture mental well-being."},{"id":"nZlotY1qRZVSK1r4jgLh","description":"Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.","date":"2024-10-18","place":"Health Gym, Melbourne","time":"18:00","eventName":"Weekly Yoga Class"},{"id":"oM56uv72KxRUzsRSlQdH","date":"2024-11-01","description":"Join us for a guided meditation session to promote relaxation and mindfulness.","place":"Zen Studio, Melbourne","eventName":"Guided Meditation","time":"17:00"},{"id":"p2vtpXIfG1SzAwW39kcP","place":"Zen Studio, Melbourne","eventName":"Guided Meditation","description":"Join us for a guided meditation session to promote relaxation and mindfulness.","date":"2024-11-01","time":"17:00"}],
-    "topics": [{"id":"fH4V1e3I1R1geeG4qL0P","title":"Enhancing Mental Resilience","tags":["resilience","growth","mental-health"],"dateCreated":"2024-10-10T09:30:00.000Z","content":"Strengthen your mental resilience by facing challenges head-on, maintaining a growth mindset, and staying connected with support systems."},{"id":"ltyRTiTJeGC053poqJGi","dateCreated":"2024-10-09T11:30:00.000Z","title":"The Power of Gratitude","tags":["gratitude","mental-health","positive-mindset"],"content":"Learn how practicing gratitude daily can enhance your mental well-being and improve your outlook on life."},{"id":"2P59xrOdn4xaYiLjHnpN","content":"Learn the importance of self-compassion and how it can positively impact your mental health.","dateCreated":"2024-10-07T15:00:00.000Z","tags":["self-compassion","mental-health","positivity"],"title":"Practicing Self-Compassion"},{"id":"6OkCOjzsfNokTyIohbM1","tags":["anxiety","therapy","journaling"],"content":"Explore strategies to manage and overcome anxiety, such as cognitive behavioral techniques, exposure therapy, and daily journaling.","dateCreated":"2024-10-05T09:30:00.000Z","title":"Overcoming Anxiety"},{"id":"mGIDF6BzjBF140BnJRcX","tags":["writing","mental-clarity","expression"],"dateCreated":"2024-10-03T13:00:00.000Z","content":"Learn how expressive writing can help you process emotions and gain mental clarity.","title":"Expressive Writing for Mental Clarity"},{"id":"7AE1b142F0hGDbCbLFLr","dateCreated":"2024-10-01T14:45:00.000Z","title":"Managing Daily Stress","content":"Learn quick and effective techniques to manage daily stress, including breathing exercises, scheduled breaks, and mindfulness practices.","tags":["stress","mindfulness","daily-health"]},{"id":"aRFcDv42F4ulaif6x5Hv","title":"Digital Detox Techniques","dateCreated":"2024-10-01T09:00:00.000Z","tags":["digital-detox","technology","mental-health"],"content":"Discover practical techniques for reducing screen time and fostering healthier relationships with technology."},{"id":"oOtKycnFA7G9W3rpJsb9","tags":["burnout","recovery","self-care"],"dateCreated":"2024-09-30T16:30:00.000Z","content":"Identify signs of burnout and explore strategies to recover, such as prioritizing rest and seeking social support.","title":"Managing Burnout"},{"id":"ZNsIMt9O4W1w4w7KpOC5","tags":["motivation","goals","self-care"],"title":"Finding Motivation","content":"Discover ways to boost your motivation when you're feeling low. Setting clear goals, celebrating small wins, and maintaining a positive mindset are key.","dateCreated":"2024-09-28T11:20:00.000Z"},{"id":"KaD7JDXX8oTkkHTZh7qX","content":"Cultivate a positive mindset by practicing gratitude, engaging in positive self-talk, and surrounding yourself with positive influences.","title":"Cultivating Positivity","dateCreated":"2024-09-25T13:00:00.000Z","tags":["positivity","gratitude","self-talk"]},{"id":"RI44WNZCG7vnIyX29IHQ","content":"Understand the critical role of sleep in maintaining mental health. Quality sleep can improve your mood, cognitive function, and overall well-being.","title":"Sleep and Mental Health","dateCreated":"2024-09-20T10:15:00.000Z","tags":["sleep","well-being","mental-health"]},{"id":"fi4funTdwfXUMngGvEZa","content":"Explore effective ways to maintain a healthy work-life balance for better mental well-being.","tags":["work-life","balance","mental-health"],"dateCreated":"2024-09-15T17:30:00.000Z","title":"Balancing Work and Life"},{"id":"w8mau420hZ6b4ieghpts","title":"The Importance of Play for Adults","content":"Learn how incorporating play into your routine can boost creativity, reduce stress, and improve your mental health.","dateCreated":"2024-09-12T16:45:00.000Z","tags":["play","creativity","stress-relief"]},{"id":"yD3P7wg60OjfVhpQlCPF","dateCreated":"2024-09-10T12:00:00.000Z","tags":["mindfulness","eating","habits"],"content":"Discover how mindfulness can improve your eating habits by promoting awareness and reducing emotional eating.","title":"Mindful Eating Practices"},{"id":"SNclJf7YriFEMDc28KHa","tags":["emotions","resilience","mental-health"],"dateCreated":"2024-09-05T14:20:00.000Z","title":"Understanding Emotional Triggers","content":"Identify and manage emotional triggers to improve your emotional resilience and mental well-being."},{"id":"akXd5pECzur2q6cqhdXG","tags":["mindful-movement","yoga","mental-health"],"content":"Discover how mindful movement practices like yoga and tai chi can improve your mental well-being.","dateCreated":"2024-09-02T08:00:00.000Z","title":"Exploring Mindful Movement"},{"id":"rOH8Lj05HAtAVE1vPnOt","title":"The Benefits of Journaling","content":"Explore the mental health benefits of journaling, including stress reduction and emotional processing.","dateCreated":"2024-08-22T10:45:00.000Z","tags":["journaling","mental-health","emotions"]},{"id":"Fdn6LEIs9SyX0QA0yNXi","tags":["happiness","science","mental-wellness"],"title":"The Science of Happiness","dateCreated":"2024-08-18T10:10:00.000Z","content":"Understand the science behind happiness and how you can cultivate it in your daily life."},{"id":"xM3pqHOp5UvQZJRvLHRZ","content":"Learn how to develop and maintain healthy relationships by improving communication skills and setting personal boundaries.","title":"Building Healthy Relationships","dateCreated":"2024-08-15T08:40:00.000Z","tags":["relationships","communication","boundaries"]},{"id":"aCaJs4lEg55RsErVvXvR","dateCreated":"2024-07-20T10:00:00.000Z","title":"Coping with Loss and Grief","content":"Explore healthy coping mechanisms for managing loss and grief, including journaling and connecting with others.","tags":["grief","coping","journaling"]}]
+  "mentalHealthCenters": [
+    {
+      "name": "Inner Peace Therapy",
+      "coordinates": [138.6098, -34.6743]
+    },
+    {
+      "name": "Nurtured Minds",
+      "coordinates": [145.3344, -37.7372]
+    },
+    {
+      "name": "Bright Futures Counseling",
+      "coordinates": [145.1333, -37.8135]
+    },
+    {
+      "name": "Empowerment Counseling",
+      "coordinates": [151.6549, -31.9505]
+    },
+    {
+      "name": "Serenity Counseling Services",
+      "coordinates": [144.9631, -37.8136]
+    },
+    {
+      "name": "Healing Pathways",
+      "coordinates": [145.0622, -37.648]
+    },
+    {
+      "name": "Mindful Wellness Center",
+      "coordinates": [151.2093, -33.8688]
+    },
+    {
+      "name": "Guided Growth Therapy",
+      "coordinates": [151.2535, -32.2564]
+    },
+    {
+      "name": "Balanced Mind Clinic",
+      "coordinates": [145.0015, -37.5544]
+    },
+    {
+      "name": "Peaceful Hearts Counseling",
+      "coordinates": [138.6007, -34.9285]
+    },
+    {
+      "name": "Compassionate Care Center",
+      "coordinates": [153.0454, -27.3861]
+    },
+    {
+      "name": "Tranquility Center",
+      "coordinates": [138.7026, -35.0142]
+    },
+    {
+      "name": "Resilient Minds Clinic",
+      "coordinates": [147.3294, -41.4405]
+    },
+    {
+      "name": "Caring Connections",
+      "coordinates": [145.091, -37.9753]
+    },
+    {
+      "name": "Harmony Mental Health Clinic",
+      "coordinates": [115.8575, -31.9505]
+    },
+    {
+      "name": "Tranquil Minds Therapy",
+      "coordinates": [153.0251, -27.4676]
+    },
+    {
+      "name": "Hopeful Horizons",
+      "coordinates": [145.1111, -38.1451]
+    },
+    {
+      "name": "Wholesome Minds Therapy",
+      "coordinates": [151.3072, -33.8166]
+    },
+    {
+      "name": "Calm Connections",
+      "coordinates": [145.2734, -37.8671]
+    },
+    {
+      "name": "Supportive Spaces",
+      "coordinates": [144.7071, -37.7396]
+    }
+  ],
+  "events": [
+    {
+      "id": "0i0IGMdWC7j4g8LiZ0cW",
+      "place": "Community Center, Sydney",
+      "date": "2024-09-15",
+      "description": "A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.",
+      "time": "18:00",
+      "eventName": "Mindfulness Workshop"
+    },
+    {
+      "id": "4oQyPzOFG4XJaauXEz1D",
+      "date": "2024-10-18",
+      "time": "18:00",
+      "eventName": "Weekly Yoga Class",
+      "description": "Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.",
+      "place": "Health Gym, Melbourne"
+    },
+    {
+      "id": "5kL786vdwXw11t5Io1tq",
+      "time": "09:00",
+      "eventName": "Mental Health in Workplace Seminar",
+      "date": "2024-12-05",
+      "place": "Business Hub, Sydney",
+      "description": "A seminar on the importance of mental health awareness in the workplace."
+    },
+    {
+      "id": "Ax9mpixPyWgfEzZzRBHk",
+      "place": "Business Hub, Sydney",
+      "description": "A seminar on the importance of mental health awareness in the workplace.",
+      "date": "2024-12-05",
+      "time": "09:00",
+      "eventName": "Mental Health in Workplace Seminar"
+    },
+    {
+      "id": "E9iz0KeRpYfgj8pq4cbK",
+      "eventName": "Stress Management Workshop",
+      "date": "2024-11-15",
+      "description": "Interactive workshop on stress management techniques for everyday life.",
+      "place": "Wellness Center, Adelaide",
+      "time": "10:00"
+    },
+    {
+      "id": "L0GQtJ4LW1WE9slCPNsL",
+      "description": "An outdoor yoga retreat to connect with nature and nurture mental well-being.",
+      "time": "08:00",
+      "place": "City Park, Melbourne",
+      "eventName": "Yoga in the Park",
+      "date": "2024-12-10"
+    },
+    {
+      "id": "M5ChTXP9lWr7HNTzuCWg",
+      "eventName": "Mindfulness Workshop",
+      "description": "A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.",
+      "place": "Community Center, Sydney",
+      "date": "2024-09-15",
+      "time": "18:00"
+    },
+    {
+      "id": "NfNgzsuiEMUFojZ8uf7S",
+      "date": "\"2024-09-15\"",
+      "place": "Community Center, Sydney",
+      "description": "A workshop designed to introduce participants to mindfulness practices that can help reduce daily stress.",
+      "eventName": "Mindfulness Workshop",
+      "time": "18:00"
+    },
+    {
+      "id": "PnKs6Mm2GdjB32iV5y9l",
+      "eventName": "Resilience Building Group Therapy",
+      "place": "Mental Health Clinic, Perth",
+      "description": "Group therapy session focusing on building resilience and coping skills.",
+      "time": "16:00",
+      "date": "2024-10-20"
+    },
+    {
+      "id": "Rl1O4o3idouhcnwJt33b",
+      "time": "16:00",
+      "description": "Group therapy session focusing on building resilience and coping skills.",
+      "eventName": "Resilience Building Group Therapy",
+      "date": "2024-10-20",
+      "place": "Mental Health Clinic, Perth"
+    },
+    {
+      "id": "WdA4gAQYM2VndybHfeXP",
+      "time": "10:00",
+      "place": "Wellness Center, Adelaide",
+      "date": "2024-11-15",
+      "eventName": "Stress Management Workshop",
+      "description": "Interactive workshop on stress management techniques for everyday life."
+    },
+    {
+      "id": "ZeU1bizX3T0COrNSw58r",
+      "place": "ArtSpace, Brisbane",
+      "date": "2024-10-25",
+      "time": "14:00",
+      "eventName": "Creative Arts Therapy",
+      "description": "Engage in creative arts therapy to express emotions through artistic activities."
+    },
+    {
+      "id": "a3NJFDLhb1xhptYp2Zzf",
+      "date": "2024-10-25",
+      "time": "14:00",
+      "eventName": "Creative Arts Therapy",
+      "description": "Engage in creative arts therapy to express emotions through artistic activities.",
+      "place": "ArtSpace, Brisbane"
+    },
+    {
+      "id": "i23PpPZ5ex4huY9TDCdX",
+      "eventName": "Weekly Yoga Class",
+      "description": "Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.",
+      "date": "2024-10-18",
+      "place": "Health Gym, Melbourne",
+      "time": "18:00"
+    },
+    {
+      "id": "mVepdtWpLp2Fyr8o9sj2",
+      "place": "City Park, Melbourne",
+      "time": "08:00",
+      "date": "2024-12-10",
+      "eventName": "Yoga in the Park",
+      "description": "An outdoor yoga retreat to connect with nature and nurture mental well-being."
+    },
+    {
+      "id": "nZlotY1qRZVSK1r4jgLh",
+      "description": "Join our weekly yoga sessions to improve flexibility, balance, and overall mental health.",
+      "date": "2024-10-18",
+      "place": "Health Gym, Melbourne",
+      "time": "18:00",
+      "eventName": "Weekly Yoga Class"
+    },
+    {
+      "id": "oM56uv72KxRUzsRSlQdH",
+      "date": "2024-11-01",
+      "description": "Join us for a guided meditation session to promote relaxation and mindfulness.",
+      "place": "Zen Studio, Melbourne",
+      "eventName": "Guided Meditation",
+      "time": "17:00"
+    },
+    {
+      "id": "p2vtpXIfG1SzAwW39kcP",
+      "place": "Zen Studio, Melbourne",
+      "eventName": "Guided Meditation",
+      "description": "Join us for a guided meditation session to promote relaxation and mindfulness.",
+      "date": "2024-11-01",
+      "time": "17:00"
+    }
+  ],
+  "topics": [
+    {
+      "id": "fH4V1e3I1R1geeG4qL0P",
+      "title": "Enhancing Mental Resilience",
+      "tags": ["resilience", "growth", "mental-health"],
+      "dateCreated": "2024-10-10T09:30:00.000Z",
+      "content": "Strengthen your mental resilience by facing challenges head-on, maintaining a growth mindset, and staying connected with support systems."
+    },
+    {
+      "id": "ltyRTiTJeGC053poqJGi",
+      "dateCreated": "2024-10-09T11:30:00.000Z",
+      "title": "The Power of Gratitude",
+      "tags": ["gratitude", "mental-health", "positive-mindset"],
+      "content": "Learn how practicing gratitude daily can enhance your mental well-being and improve your outlook on life."
+    },
+    {
+      "id": "2P59xrOdn4xaYiLjHnpN",
+      "content": "Learn the importance of self-compassion and how it can positively impact your mental health.",
+      "dateCreated": "2024-10-07T15:00:00.000Z",
+      "tags": ["self-compassion", "mental-health", "positivity"],
+      "title": "Practicing Self-Compassion"
+    },
+    {
+      "id": "6OkCOjzsfNokTyIohbM1",
+      "tags": ["anxiety", "therapy", "journaling"],
+      "content": "Explore strategies to manage and overcome anxiety, such as cognitive behavioral techniques, exposure therapy, and daily journaling.",
+      "dateCreated": "2024-10-05T09:30:00.000Z",
+      "title": "Overcoming Anxiety"
+    },
+    {
+      "id": "mGIDF6BzjBF140BnJRcX",
+      "tags": ["writing", "mental-clarity", "expression"],
+      "dateCreated": "2024-10-03T13:00:00.000Z",
+      "content": "Learn how expressive writing can help you process emotions and gain mental clarity.",
+      "title": "Expressive Writing for Mental Clarity"
+    },
+    {
+      "id": "7AE1b142F0hGDbCbLFLr",
+      "dateCreated": "2024-10-01T14:45:00.000Z",
+      "title": "Managing Daily Stress",
+      "content": "Learn quick and effective techniques to manage daily stress, including breathing exercises, scheduled breaks, and mindfulness practices.",
+      "tags": ["stress", "mindfulness", "daily-health"]
+    },
+    {
+      "id": "aRFcDv42F4ulaif6x5Hv",
+      "title": "Digital Detox Techniques",
+      "dateCreated": "2024-10-01T09:00:00.000Z",
+      "tags": ["digital-detox", "technology", "mental-health"],
+      "content": "Discover practical techniques for reducing screen time and fostering healthier relationships with technology."
+    },
+    {
+      "id": "oOtKycnFA7G9W3rpJsb9",
+      "tags": ["burnout", "recovery", "self-care"],
+      "dateCreated": "2024-09-30T16:30:00.000Z",
+      "content": "Identify signs of burnout and explore strategies to recover, such as prioritizing rest and seeking social support.",
+      "title": "Managing Burnout"
+    },
+    {
+      "id": "ZNsIMt9O4W1w4w7KpOC5",
+      "tags": ["motivation", "goals", "self-care"],
+      "title": "Finding Motivation",
+      "content": "Discover ways to boost your motivation when you're feeling low. Setting clear goals, celebrating small wins, and maintaining a positive mindset are key.",
+      "dateCreated": "2024-09-28T11:20:00.000Z"
+    },
+    {
+      "id": "KaD7JDXX8oTkkHTZh7qX",
+      "content": "Cultivate a positive mindset by practicing gratitude, engaging in positive self-talk, and surrounding yourself with positive influences.",
+      "title": "Cultivating Positivity",
+      "dateCreated": "2024-09-25T13:00:00.000Z",
+      "tags": ["positivity", "gratitude", "self-talk"]
+    },
+    {
+      "id": "RI44WNZCG7vnIyX29IHQ",
+      "content": "Understand the critical role of sleep in maintaining mental health. Quality sleep can improve your mood, cognitive function, and overall well-being.",
+      "title": "Sleep and Mental Health",
+      "dateCreated": "2024-09-20T10:15:00.000Z",
+      "tags": ["sleep", "well-being", "mental-health"]
+    },
+    {
+      "id": "fi4funTdwfXUMngGvEZa",
+      "content": "Explore effective ways to maintain a healthy work-life balance for better mental well-being.",
+      "tags": ["work-life", "balance", "mental-health"],
+      "dateCreated": "2024-09-15T17:30:00.000Z",
+      "title": "Balancing Work and Life"
+    },
+    {
+      "id": "w8mau420hZ6b4ieghpts",
+      "title": "The Importance of Play for Adults",
+      "content": "Learn how incorporating play into your routine can boost creativity, reduce stress, and improve your mental health.",
+      "dateCreated": "2024-09-12T16:45:00.000Z",
+      "tags": ["play", "creativity", "stress-relief"]
+    },
+    {
+      "id": "yD3P7wg60OjfVhpQlCPF",
+      "dateCreated": "2024-09-10T12:00:00.000Z",
+      "tags": ["mindfulness", "eating", "habits"],
+      "content": "Discover how mindfulness can improve your eating habits by promoting awareness and reducing emotional eating.",
+      "title": "Mindful Eating Practices"
+    },
+    {
+      "id": "SNclJf7YriFEMDc28KHa",
+      "tags": ["emotions", "resilience", "mental-health"],
+      "dateCreated": "2024-09-05T14:20:00.000Z",
+      "title": "Understanding Emotional Triggers",
+      "content": "Identify and manage emotional triggers to improve your emotional resilience and mental well-being."
+    },
+    {
+      "id": "akXd5pECzur2q6cqhdXG",
+      "tags": ["mindful-movement", "yoga", "mental-health"],
+      "content": "Discover how mindful movement practices like yoga and tai chi can improve your mental well-being.",
+      "dateCreated": "2024-09-02T08:00:00.000Z",
+      "title": "Exploring Mindful Movement"
+    },
+    {
+      "id": "rOH8Lj05HAtAVE1vPnOt",
+      "title": "The Benefits of Journaling",
+      "content": "Explore the mental health benefits of journaling, including stress reduction and emotional processing.",
+      "dateCreated": "2024-08-22T10:45:00.000Z",
+      "tags": ["journaling", "mental-health", "emotions"]
+    },
+    {
+      "id": "Fdn6LEIs9SyX0QA0yNXi",
+      "tags": ["happiness", "science", "mental-wellness"],
+      "title": "The Science of Happiness",
+      "dateCreated": "2024-08-18T10:10:00.000Z",
+      "content": "Understand the science behind happiness and how you can cultivate it in your daily life."
+    },
+    {
+      "id": "xM3pqHOp5UvQZJRvLHRZ",
+      "content": "Learn how to develop and maintain healthy relationships by improving communication skills and setting personal boundaries.",
+      "title": "Building Healthy Relationships",
+      "dateCreated": "2024-08-15T08:40:00.000Z",
+      "tags": ["relationships", "communication", "boundaries"]
+    },
+    {
+      "id": "aCaJs4lEg55RsErVvXvR",
+      "dateCreated": "2024-07-20T10:00:00.000Z",
+      "title": "Coping with Loss and Grief",
+      "content": "Explore healthy coping mechanisms for managing loss and grief, including journaling and connecting with others.",
+      "tags": ["grief", "coping", "journaling"]
+    }
+  ]
 }
