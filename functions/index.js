@@ -1,21 +1,21 @@
-const functions = require('firebase-functions');
-const admin = require('firebase-admin');
+import { config, https } from 'firebase-functions';
+import { apps, initializeApp, firestore } from 'firebase-admin';
+// eslint-disable-next-line no-undef
 const cors = require('cors')({ origin: true });
-const sgMail = require('@sendgrid/mail');
+import { setApiKey, send } from '@sendgrid/mail';
 
 // const admin = require("firebase-admin");
 
-if (!admin.apps.length) {
-    admin.initializeApp();
+if (!apps.length) {
+    initializeApp();
 }
 
 
-const emailKey = functions.config().sendgrid.key;
-sgMail.setApiKey(emailKey);
+const emailKey = config().sendgrid.key;
+setApiKey(emailKey);
 
 
-// HTTP Cloud Function for CORS
-exports.sendBookingEmailHTTP = functions.https.onRequest((req, res) => {
+export const sendBookingEmailHTTP = https.onRequest((req, res) => {
     cors(req, res, async () => {
         // Check if the method is POST
         if (req.method !== 'POST') {
@@ -35,7 +35,7 @@ exports.sendBookingEmailHTTP = functions.https.onRequest((req, res) => {
         };
 
         try {
-            await sgMail.send(msg);
+            await send(msg);
             return res.status(200).send({ success: true });
         } catch (error) {
             console.error("Error sending email:", error);
@@ -44,10 +44,10 @@ exports.sendBookingEmailHTTP = functions.https.onRequest((req, res) => {
     });
 });
 
-exports.getTopics = functions.https.onRequest((req, res) => {
+export const getTopics = https.onRequest((req, res) => {
     cors(req, res, async () => {
         try {
-            const topicsCollection = admin.firestore().collection("topics");
+            const topicsCollection = firestore().collection("topics");
             const snapshot = await topicsCollection.get();
 
             const topics = [];
@@ -63,10 +63,10 @@ exports.getTopics = functions.https.onRequest((req, res) => {
     });
 });
 
-exports.getMentalHealthCenters = functions.https.onRequest((req, res) => {
+export const getMentalHealthCenters = https.onRequest((req, res) => {
     cors(req, res, async () => {
         try {
-            const centersCollection = admin.firestore().collection('mentalHealthCenters');
+            const centersCollection = firestore().collection('mentalHealthCenters');
             const snapshot = await centersCollection.get();
 
             const centers = [];
