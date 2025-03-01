@@ -1,6 +1,13 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const cors = require('cors')({ origin: true });
+// Define all allowed origins
+
+  
+  const cors = require('cors')({ 
+    origin: true,
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  });
 const sgMail = require('@sendgrid/mail');
 
 // Initialize Firebase Admin SDK

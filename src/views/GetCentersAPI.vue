@@ -20,7 +20,7 @@ export default {
     methods: {
         async getMentalHealthCentersDataAPI() {
             try {
-                const response = await axios.get('https://us-central1-radientrea.cloudfunctions.net/getMentalHealthCenters');
+                const response = await axios.get('https://getmentalhealthcenters-yhpugs43za-uc.a.run.app/');
                 this.jsondata = response.data;
                 this.error = null;
             } catch (error) {
