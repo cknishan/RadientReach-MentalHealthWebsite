@@ -12,6 +12,7 @@ if (!admin.apps.length) {
 // Set SendGrid API Key from Firebase config
 // eslint-disable-next-line no-undef
 const emailKey = process.env.SENDGRID_API_KEY
+// const emailKey = functions.config().sendgrid.key;
 sgMail.setApiKey(emailKey);
 
 exports.sendBookingEmailHTTP = functions.https.onRequest((req, res) => {

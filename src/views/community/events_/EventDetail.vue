@@ -232,7 +232,7 @@ async function sendBookingEmail() {
             };
 
             // Call the HTTP Cloud Function
-            const response = await fetch('https://us-central1-mental-health-5ba08.cloudfunctions.net/sendBookingEmailHTTP', {
+            const response = await fetch('https://sendbookingemailhttp-yhpugs43za-uc.a.run.app', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
