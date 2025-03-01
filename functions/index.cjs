@@ -1,21 +1,20 @@
-import { config, https } from 'firebase-functions';
-import { apps, initializeApp, firestore } from 'firebase-admin';
-// eslint-disable-next-line no-undef
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 const cors = require('cors')({ origin: true });
-import { setApiKey, send } from '@sendgrid/mail';
+const sgMail = require('@sendgrid/mail');
 
-// const admin = require("firebase-admin");
-
-if (!apps.length) {
-    initializeApp();
+// Initialize Firebase Admin SDK
+if (!admin.apps.length) {
+    admin.initializeApp();
 }
 
 
-const emailKey = config().sendgrid.key;
-setApiKey(emailKey);
+// Set SendGrid API Key from Firebase config
+// eslint-disable-next-line no-undef
+const emailKey = process.env.SENDGRID_API_KEY
+sgMail.setApiKey(emailKey);
 
-
-export const sendBookingEmailHTTP = https.onRequest((req, res) => {
+exports.sendBookingEmailHTTP = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         // Check if the method is POST
         if (req.method !== 'POST') {
@@ -26,7 +25,7 @@ export const sendBookingEmailHTTP = https.onRequest((req, res) => {
 
         const msg = {
             to: to,
-            from: 'nishan.chakma.nish@gmail.com',
+            from: 'nishan.chakma.nish@gmail.com', // Replace with your verified SendGrid email
             subject: `Booking Confirmation: ${eventName}`,
             text: `Thank you for booking ${eventName}.\n\nDetails:\nEvent Name: ${eventName}\nDate: ${eventDate}\nPlace: ${eventPlace}`,
             html: `<p>Thank you for booking <strong>${eventName}</strong>.</p>
@@ -35,7 +34,7 @@ export const sendBookingEmailHTTP = https.onRequest((req, res) => {
         };
 
         try {
-            await send(msg);
+            await sgMail.send(msg);
             return res.status(200).send({ success: true });
         } catch (error) {
             console.error("Error sending email:", error);
@@ -44,10 +43,10 @@ export const sendBookingEmailHTTP = https.onRequest((req, res) => {
     });
 });
 
-export const getTopics = https.onRequest((req, res) => {
+exports.getTopics = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         try {
-            const topicsCollection = firestore().collection("topics");
+            const topicsCollection = admin.firestore().collection("topics");
             const snapshot = await topicsCollection.get();
 
             const topics = [];
@@ -63,10 +62,10 @@ export const getTopics = https.onRequest((req, res) => {
     });
 });
 
-export const getMentalHealthCenters = https.onRequest((req, res) => {
+exports.getMentalHealthCenters = functions.https.onRequest((req, res) => {
     cors(req, res, async () => {
         try {
-            const centersCollection = firestore().collection('mentalHealthCenters');
+            const centersCollection = admin.firestore().collection('mentalHealthCenters');
             const snapshot = await centersCollection.get();
 
             const centers = [];

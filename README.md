@@ -20,7 +20,7 @@ Here’s an improved version of your content with better readability, structure,
 - ♿ **Accessibility Support** – Built-in text-to-speech reader for an inclusive experience.  
 - 📂 **Data Export** – Save your journal entries in JSON and CSV formats.  
 - 🤖 **AI-Powered Chatbot** – Get instant assistance anytime with an intelligent chatbot.  
-- 🔗 API Access – Secure REST API routes for third-party data retrieval and integration.
+- 🔗 **API Access** – Secure REST API routes for third-party data retrieval and integration.
 
 ## Technologies  
 - **Frontend:** Vue.js, Tailwind CSS  
