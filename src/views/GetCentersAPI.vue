@@ -1,5 +1,7 @@
 <template>
-    {{ jsondata }}
+    <div class="mt-10">
+        {{ jsondata }}
+    </div>
 </template>
 
 <script>
@@ -18,7 +20,7 @@ export default {
     methods: {
         async getMentalHealthCentersDataAPI() {
             try {
-                const response = await axios.get('https://us-central1-mental-health-5ba08.cloudfunctions.net/getMentalHealthCenters');
+                const response = await axios.get('https://us-central1-radientrea.cloudfunctions.net/getMentalHealthCenters');
                 this.jsondata = response.data;
                 this.error = null;
             } catch (error) {
